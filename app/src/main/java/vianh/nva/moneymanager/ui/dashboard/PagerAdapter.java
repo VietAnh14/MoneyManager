@@ -19,9 +19,9 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return new IncomeFragment();
-            case 1:
                 return new OutcomeFragment();
+            case 1:
+                return new IncomeFragment();
             default:
                 return null;
         }

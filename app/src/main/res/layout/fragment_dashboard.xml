@@ -11,7 +11,8 @@
         android:layout_alignParentTop="true"
         android:minHeight="?actionBarSize"
         android:background="?attr/colorPrimary"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
+        app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"
