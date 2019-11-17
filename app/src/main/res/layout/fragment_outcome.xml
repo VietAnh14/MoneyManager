@@ -9,8 +9,10 @@
 
     <EditText
         android:id="@+id/dateEditText"
-        android:inputType="date"
+        android:inputType="date|none"
         android:background="@color/colorPrimaryLight"
+        android:clickable="true"
+        android:focusable="true"
         android:text="16/8/2019 (Th5)"
         app:layout_constraintEnd_toStartOf="@+id/imageButton"
         app:layout_constraintStart_toEndOf="@+id/textView2"
