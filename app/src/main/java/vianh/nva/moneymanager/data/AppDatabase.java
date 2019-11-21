@@ -43,6 +43,7 @@ public abstract class AppDatabase extends RoomDatabase {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
+            Log.d("create db", "create db");
             new populateDbAsyncTask(INSTANCE).execute();
         }
     };
@@ -60,6 +61,10 @@ public abstract class AppDatabase extends RoomDatabase {
             Category category = new Category("ic_calendar",
                     "colorPrimary", "An uong", Money.TYPE_SPEND);
             for (int i = 0; i < 15; i++) {
+                categoryDao.insert(category);
+            }
+            category.setType(Money.TYPE_EARN);
+            for (int i = 0; i < 10; i++) {
                 categoryDao.insert(category);
             }
             Log.d("AppDatabase", "inserted");

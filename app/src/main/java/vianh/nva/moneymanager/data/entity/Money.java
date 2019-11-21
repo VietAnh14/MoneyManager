@@ -20,7 +20,7 @@ public class Money {
     public static final int TYPE_EARN = 1;
 
     @Ignore
-    public Money(Date date, String note, Float money, int categoryId) {
+    public Money(Date date, String note, Float money, int categoryId, int type) {
         this.date = date;
         this.note = note;
         this.money = money;

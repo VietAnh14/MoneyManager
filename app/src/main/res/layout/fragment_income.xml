@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.dashboard.IncomeFragment">
+    tools:context=".ui.home.IncomeFragment">
 
     <TextView
         android:id="@+id/dateEditText"
@@ -140,8 +140,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/app_margin"
-        android:layout_marginTop="10dp"
         android:layout_marginEnd="@dimen/app_margin"
+        android:layout_marginTop="30dp"
         android:background="@color/colorPrimary"
         android:text="Nhap khoan thu"
         android:textAllCaps="false"

@@ -1,4 +1,4 @@
-package vianh.nva.moneymanager.ui.dashboard;
+package vianh.nva.moneymanager.ui.home;
 
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProviders;
@@ -34,14 +34,14 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import vianh.nva.moneymanager.R;
 import vianh.nva.moneymanager.data.entity.Money;
-import vianh.nva.moneymanager.ui.dashboard.adapter.CategoryAdapter;
+import vianh.nva.moneymanager.ui.home.adapter.CategoryAdapter;
 import vianh.nva.moneymanager.ui.view.DatePickerDialogFragment;
 
-public class OutcomeFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
+public class IncomeFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
 
-    private OutcomeViewModel mViewModel;
+    private HomeViewModel mViewModel;
     private TextView dateText;
-    private Button btnInsertSpentMoney;
+    private Button btnInsertEarnMoney;
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
     private FragmentActivity context;
     private EditText txbMoney;
@@ -49,8 +49,8 @@ public class OutcomeFragment extends Fragment implements DatePickerDialog.OnDate
     private Calendar c = Calendar.getInstance();
     private EditText noteText;
 
-    public static OutcomeFragment newInstance() {
-        return new OutcomeFragment();
+    public static IncomeFragment newInstance() {
+        return new IncomeFragment();
     }
 
     @Override
@@ -62,7 +62,7 @@ public class OutcomeFragment extends Fragment implements DatePickerDialog.OnDate
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_outcome, container, false);
+        return inflater.inflate(R.layout.fragment_income, container, false);
     }
 
     @Override
@@ -71,21 +71,21 @@ public class OutcomeFragment extends Fragment implements DatePickerDialog.OnDate
         initData(view);
     }
 
-    public void initData(View view) {
-        mViewModel = ViewModelProviders.of(this).get(OutcomeViewModel.class);
+    public void initData(View view){
+        mViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
 
         // get view
         RecyclerView recyclerView = view.findViewById(R.id.listCategory);
         dateText = view.findViewById(R.id.dateEditText);
         txbMoney = view.findViewById(R.id.moneyEarnEditText);
         ImageButton btn = view.findViewById(R.id.imageButtonDateDialog);
-        btnInsertSpentMoney = view.findViewById(R.id.btnInsertSpentMoney);
+        btnInsertEarnMoney = view.findViewById(R.id.btnInsertEarnMoney);
         noteText = view.findViewById(R.id.noteEditText);
 
         String dateString = c.get(Calendar.DAY_OF_MONTH) + "/" + c.get(Calendar.MONTH) + "/" + c.get(Calendar.YEAR);
         dateText.setText(dateString);
 
-        btnInsertSpentMoney.setEnabled(false);
+        btnInsertEarnMoney.setEnabled(false);
         txbMoney.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -100,31 +100,30 @@ public class OutcomeFragment extends Fragment implements DatePickerDialog.OnDate
             @Override
             public void afterTextChanged(Editable editable) {
                 if (txbMoney.getText() != null && !txbMoney.getText().toString().equals("0"))
-                    btnInsertSpentMoney.setEnabled(true);
+                    btnInsertEarnMoney.setEnabled(true);
                 else
-                    btnInsertSpentMoney.setEnabled(false);
+                    btnInsertEarnMoney.setEnabled(false);
             }
         });
 
         // bind adapter to recyclerview
         final CategoryAdapter adapter = new CategoryAdapter();
 
-        mViewModel.getListCategorySpend().observe(this, categories -> {
+        mViewModel.getListCategoryEarn().observe(this, categories -> {
             adapter.setList(categories);
-            Log.d("Outcome", "Changed");
+            Log.d("Income", "Changed");
         });
 
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 3);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
+
         btn.setOnClickListener(view1 -> {
-            DatePickerDialogFragment datePicker = new DatePickerDialogFragment(OutcomeFragment.this);
+            DatePickerDialogFragment datePicker = new DatePickerDialogFragment(IncomeFragment.this);
             datePicker.show(context.getSupportFragmentManager(), "Date picker dialog");
         });
 
-        // set onclick
-        // TODO: refactor this to use data binding
-        btnInsertSpentMoney.setOnClickListener(
+        btnInsertEarnMoney.setOnClickListener(
                 v -> {
                     Date spentDate = c.getTime();
                     String note = noteText.getText().toString();
@@ -133,10 +132,9 @@ public class OutcomeFragment extends Fragment implements DatePickerDialog.OnDate
                         spent = Float.valueOf(txbMoney.getText().toString());
                     }
                     int categoryId = adapter.getSelectedId();
-                    Money money = new Money(spentDate, note, spent, categoryId);
-                    Log.d(TAG, String.valueOf(categoryId));
+                    Money money = new Money(spentDate, note, spent, categoryId, Money.TYPE_EARN);
                     compositeDisposable.add(
-                            mViewModel.insertSpentMoney(money)
+                            mViewModel.insertMoney(money)
                                     .subscribeOn(Schedulers.io())
                                     .observeOn(AndroidSchedulers.mainThread())
                                     .subscribe(
@@ -156,14 +154,6 @@ public class OutcomeFragment extends Fragment implements DatePickerDialog.OnDate
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
-
-        // clear all the subscriptions
-        compositeDisposable.clear();
-    }
-
-    @Override
     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
         c.set(i, i1, i2);
         String dateString = i2+ "/" + i1 + "/" + i;
@@ -172,6 +162,6 @@ public class OutcomeFragment extends Fragment implements DatePickerDialog.OnDate
 
     public void clearTxb() {
         noteText.getText().clear();
-        txbMoney.setText(0);
+        txbMoney.setText("0");
     }
 }

@@ -12,4 +12,5 @@
     <string name="ghi_chu">Ghi chú</string>
     <string name="ngay">Ngày</string>
     <string name="add_note">Nhập ghi chú</string>
+    <string name="title_calendar">Calendar</string>
 </resources>
