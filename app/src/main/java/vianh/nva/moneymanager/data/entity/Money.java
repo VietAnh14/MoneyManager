@@ -6,7 +6,6 @@ import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity(tableName = "money",
@@ -19,6 +18,17 @@ public class Money {
 
     @Ignore
     public static final int TYPE_EARN = 1;
+
+    @Ignore
+    public Money(Date date, String note, Float money, int categoryId) {
+        this.date = date;
+        this.note = note;
+        this.money = money;
+        this.categoryId = categoryId;
+        this.type = type;
+    }
+
+    public Money() {}
 
     @PrimaryKey(autoGenerate = true)
     private int id;

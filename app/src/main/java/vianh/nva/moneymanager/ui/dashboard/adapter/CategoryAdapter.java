@@ -1,6 +1,8 @@
 package vianh.nva.moneymanager.ui.dashboard.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,17 +13,17 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.zip.Inflater;
 
 import vianh.nva.moneymanager.R;
 import vianh.nva.moneymanager.Utils;
 import vianh.nva.moneymanager.data.entity.Category;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ItemViewHolder> {
+    private final  int TYPE_SETTING = -1;
+
     private List<Category> list;
-    private int selectedPosition = RecyclerView.NO_POSITION;
+    private int selectedPosition = 0;
     private Context context;
 
     public CategoryAdapter(List<Category> data) {
@@ -31,7 +33,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ItemVi
     public CategoryAdapter() { }
 
     public void setList(List<Category> list) {
+
+        // Add a category just to start new activity
+        Category category = new Category("ic_chevron_right_black_24dp",
+                "colorPrimary", "Chinh sua gi do cho no dai ne", -1);
         this.list = list;
+        list.add(category);
         notifyDataSetChanged();
     }
 
@@ -45,7 +52,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ItemVi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ItemViewHolder holder, final int position) {
         int iconId = Utils.getResId(list.get(position).getIconName(), R.drawable.class);
         int colorId = Utils.getResId(list.get(position).getColorName(), R.color.class);
         String desc = list.get(position).getDescription();
@@ -53,6 +60,23 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ItemVi
         holder.categoryIcon.setColorFilter(ContextCompat.getColor(context, colorId), android.graphics.PorterDuff.Mode.SRC_IN);
         holder.categoryIcon.setImageResource(iconId);
         holder.categoryDesc.setText(desc);
+
+        if (list.get(position).getType() != TYPE_SETTING) {
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    notifyItemChanged(selectedPosition);
+                    selectedPosition = position;
+                    notifyItemChanged(selectedPosition);
+                }
+            });
+        } else
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Log.d("CategoryAdapter", "Setting clicked");
+                }
+            });
     }
 
     @Override
@@ -63,7 +87,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ItemVi
            return 0;
     }
 
-    class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class ItemViewHolder extends RecyclerView.ViewHolder {
 
         private TextView categoryDesc;
         private ImageView categoryIcon;
@@ -72,14 +96,14 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ItemVi
             super(itemView);
             categoryDesc = itemView.findViewById(R.id.categorySpendDesc);
             categoryIcon = itemView.findViewById(R.id.categorySpendIcon);
-            itemView.setOnClickListener(this);
         }
+    }
 
-        @Override
-        public void onClick(View view) {
-            notifyItemChanged(selectedPosition);
-            selectedPosition = getLayoutPosition();
-            notifyItemChanged(selectedPosition);
-        }
+    public int getSelectedId() {
+        return list.get(selectedPosition).getId();
+    }
+
+    public int getSelectedPosition() {
+        return selectedPosition;
     }
 }

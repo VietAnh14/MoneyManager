@@ -1,12 +1,13 @@
 package vianh.nva.moneymanager.data;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
-import vianh.nva.moneymanager.data.dao.MoneyDao;
+import io.reactivex.Completable;
 import vianh.nva.moneymanager.data.entity.Category;
 import vianh.nva.moneymanager.data.entity.Money;
 
@@ -21,8 +22,13 @@ public class DataRepository {
     }
 
 
-
     public LiveData<List<Category>> getListCategorySpend() {
         return listCategorySpend;
     }
+
+    public Completable insertMoney(Money money) {
+        Log.d("insert", "inserted");
+        return db.moneyDao().insert(money);
+    }
+
 }

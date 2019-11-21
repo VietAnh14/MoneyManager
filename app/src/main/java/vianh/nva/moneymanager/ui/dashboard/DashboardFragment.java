@@ -6,19 +6,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
-import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 
 import vianh.nva.moneymanager.R;
+import vianh.nva.moneymanager.ui.dashboard.adapter.PagerAdapter;
 
 public class DashboardFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
 

@@ -9,12 +9,13 @@ import androidx.room.Query;
 import java.util.Date;
 import java.util.List;
 
+import io.reactivex.Completable;
 import vianh.nva.moneymanager.data.entity.Money;
 
 @Dao
 public interface MoneyDao {
     @Insert
-    void insert(Money money);
+    Completable insert(Money money);
 
     @Query("SELECT * FROM money where date = :date")
     LiveData<List<Money>> getMoneyByDate(Date date);
@@ -23,5 +24,5 @@ public interface MoneyDao {
     LiveData<List<Money>> getMoneyByMonth(int month);
 
     @Query("Delete from money")
-    void deleteAll();
+    Completable deleteAll();
 }

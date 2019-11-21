@@ -7,20 +7,18 @@
     tools:context=".ui.dashboard.OutcomeFragment">
 
 
-    <EditText
+    <TextView
         android:id="@+id/dateEditText"
-        android:inputType="date|none"
         android:background="@color/colorPrimaryLight"
         android:clickable="true"
         android:focusable="true"
-        android:text="16/8/2019 (Th5)"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton"
+        app:layout_constraintEnd_toStartOf="@+id/imageButtonDateDialog"
         app:layout_constraintStart_toEndOf="@+id/textView2"
         app:layout_constraintTop_toTopOf="parent"
         style="@style/edit_text" />
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/imageButtonDateDialog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/app_margin"
@@ -59,7 +57,7 @@
         android:inputType="textMultiLine"
         android:hint="@string/add_note"
         android:background="@android:color/transparent"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton"
+        app:layout_constraintEnd_toStartOf="@+id/imageButtonDateDialog"
         app:layout_constraintStart_toEndOf="@+id/textView2"
         app:layout_constraintTop_toBottomOf="@+id/view"
         android:scrollbars="vertical"
@@ -79,18 +77,18 @@
         android:id="@+id/textView3"
         style="@style/text_label_18sp"
         android:text="Tien chi"
-        app:layout_constraintBaseline_toBaselineOf="@+id/moneySpentEditText"
+        app:layout_constraintBaseline_toBaselineOf="@+id/moneyEarnEditText"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/moneySpentEditText"
+        android:id="@+id/moneyEarnEditText"
         style="@style/edit_text"
         android:inputType="numberDecimal"
         android:textStyle="bold"
         android:text="0"
         android:background="@color/colorPrimaryLight"
         app:layout_constraintTop_toBottomOf="@id/view1"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton"
+        app:layout_constraintEnd_toStartOf="@+id/imageButtonDateDialog"
         app:layout_constraintStart_toEndOf="@+id/textView2" />
     <View
         android:id="@+id/view2"
@@ -100,7 +98,7 @@
         android:background="@color/gray"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/moneySpentEditText"/>
+        app:layout_constraintTop_toBottomOf="@id/moneyEarnEditText"/>
 
     <TextView
         android:id="@+id/cateLabel"
@@ -138,6 +136,7 @@
         app:layout_constraintTop_toBottomOf="@id/listCategory"/>
 
     <Button
+        android:id="@+id/btnInsertSpentMoney"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/app_margin"

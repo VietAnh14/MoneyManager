@@ -1,9 +1,12 @@
-package vianh.nva.moneymanager.ui.dashboard;
+package vianh.nva.moneymanager.ui.dashboard.adapter;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
+
+import vianh.nva.moneymanager.ui.dashboard.IncomeFragment;
+import vianh.nva.moneymanager.ui.dashboard.OutcomeFragment;
 
 public class PagerAdapter extends FragmentStatePagerAdapter {
     private int numOfTabs;
