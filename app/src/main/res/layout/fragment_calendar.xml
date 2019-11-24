@@ -4,4 +4,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.applandeo.materialcalendarview.CalendarView
+            android:id="@+id/calendarView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:type="one_day_picker"
+            app:headerColor="@color/colorAccent"
+            app:selectionColor="@color/colorPrimary"
+            app:todayLabelColor="@color/colorAccentDark"
+            app:eventsEnabled="true"/>
+    </FrameLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"/>
 </LinearLayout>

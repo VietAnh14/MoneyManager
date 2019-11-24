@@ -8,6 +8,7 @@ import androidx.lifecycle.LiveData;
 import java.util.List;
 
 import io.reactivex.Completable;
+import io.reactivex.Flowable;
 import vianh.nva.moneymanager.data.entity.Category;
 import vianh.nva.moneymanager.data.entity.Money;
 
@@ -44,5 +45,9 @@ public class AppRepository {
     public Completable insertMoney(Money money) {
         Log.d("insert", "inserted");
         return db.moneyDao().insert(money);
+    }
+
+    public Flowable<List<Money>> getListMoneyByMonth(int month) {
+        return db.moneyDao().getMoneyByMonth(month);
     }
 }

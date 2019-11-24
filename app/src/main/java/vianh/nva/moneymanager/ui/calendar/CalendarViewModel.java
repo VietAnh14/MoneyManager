@@ -1,19 +1,25 @@
 package vianh.nva.moneymanager.ui.calendar;
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
-public class CalendarViewModel extends ViewModel {
+import android.app.Application;
 
-    private MutableLiveData<String> mText;
+import androidx.lifecycle.AndroidViewModel;
 
-    public CalendarViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is home fragment");
+import java.util.List;
+
+import io.reactivex.Flowable;
+import vianh.nva.moneymanager.data.AppRepository;
+import vianh.nva.moneymanager.data.entity.Money;
+
+public class CalendarViewModel extends AndroidViewModel {
+    AppRepository repository;
+
+    public CalendarViewModel(Application application) {
+        super(application);
+        repository = AppRepository.getInstance(application);
     }
 
-    public LiveData<String> getText() {
-        return mText;
+    public Flowable<List<Money>> getListMoneyByMonth(int month) {
+        return repository.getListMoneyByMonth(month);
     }
 }

@@ -82,7 +82,7 @@ public class OutcomeFragment extends Fragment implements DatePickerDialog.OnDate
         btnInsertSpentMoney = view.findViewById(R.id.btnInsertSpentMoney);
         noteText = view.findViewById(R.id.noteEditText);
 
-        String dateString = c.get(Calendar.DAY_OF_MONTH) + "/" + c.get(Calendar.MONTH) + "/" + c.get(Calendar.YEAR);
+        String dateString = c.get(Calendar.DAY_OF_MONTH) + "/" + (c.get(Calendar.MONTH) + 1) + "/" + c.get(Calendar.YEAR);
         dateText.setText(dateString);
 
         btnInsertSpentMoney.setEnabled(false);
@@ -167,7 +167,7 @@ public class OutcomeFragment extends Fragment implements DatePickerDialog.OnDate
     @Override
     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
         c.set(i, i1, i2);
-        String dateString = i2+ "/" + i1 + "/" + i;
+        String dateString = i2+ "/" + (i1 + 1)  + "/" + i;
         dateText.setText(dateString);
     }
 

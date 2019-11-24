@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 import io.reactivex.Completable;
+import io.reactivex.Flowable;
 import vianh.nva.moneymanager.data.entity.Money;
 
 @Dao
@@ -20,8 +21,8 @@ public interface MoneyDao {
     @Query("SELECT * FROM money where date = :date")
     LiveData<List<Money>> getMoneyByDate(Date date);
 
-    @Query("SELECT * FROM money where CAST(strftime('%m', DATETIME(date, 'unixepoch')) AS INT) = :month")
-    LiveData<List<Money>> getMoneyByMonth(int month);
+    @Query("SELECT * FROM money where CAST(strftime('%m', DATETIME(date/1000, 'unixepoch')) AS INT) = :month")
+    Flowable<List<Money>> getMoneyByMonth(int month);
 
     @Query("Delete from money")
     Completable deleteAll();

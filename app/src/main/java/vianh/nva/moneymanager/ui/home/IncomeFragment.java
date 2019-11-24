@@ -71,6 +71,12 @@ public class IncomeFragment extends Fragment implements DatePickerDialog.OnDateS
         initData(view);
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        compositeDisposable.clear();
+    }
+
     public void initData(View view){
         mViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
 
@@ -82,7 +88,7 @@ public class IncomeFragment extends Fragment implements DatePickerDialog.OnDateS
         btnInsertEarnMoney = view.findViewById(R.id.btnInsertEarnMoney);
         noteText = view.findViewById(R.id.noteEditText);
 
-        String dateString = c.get(Calendar.DAY_OF_MONTH) + "/" + c.get(Calendar.MONTH) + "/" + c.get(Calendar.YEAR);
+        String dateString = c.get(Calendar.DAY_OF_MONTH) + "/" + (c.get(Calendar.MONTH) + 1) + "/" + c.get(Calendar.YEAR);
         dateText.setText(dateString);
 
         btnInsertEarnMoney.setEnabled(false);
@@ -156,7 +162,7 @@ public class IncomeFragment extends Fragment implements DatePickerDialog.OnDateS
     @Override
     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
         c.set(i, i1, i2);
-        String dateString = i2+ "/" + i1 + "/" + i;
+        String dateString = i2+ "/" + (i1 + 1) + "/" + i;
         dateText.setText(dateString);
     }
 
