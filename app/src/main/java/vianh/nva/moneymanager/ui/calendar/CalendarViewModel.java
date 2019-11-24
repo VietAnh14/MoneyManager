@@ -5,10 +5,18 @@ import android.app.Application;
 
 import androidx.lifecycle.AndroidViewModel;
 
+import com.applandeo.materialcalendarview.EventDay;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 
 import io.reactivex.Flowable;
+import io.reactivex.functions.Function;
+import vianh.nva.moneymanager.R;
 import vianh.nva.moneymanager.data.AppRepository;
+import vianh.nva.moneymanager.data.entity.Category;
 import vianh.nva.moneymanager.data.entity.Money;
 
 public class CalendarViewModel extends AndroidViewModel {
@@ -21,5 +29,17 @@ public class CalendarViewModel extends AndroidViewModel {
 
     public Flowable<List<Money>> getListMoneyByMonth(int month) {
         return repository.getListMoneyByMonth(month);
+    }
+
+    public Flowable<HashMap<Integer, Category>> getMapCategory() {
+        return repository.getAllCategory()
+                .map(categories -> {
+                   HashMap<Integer, Category> map = new HashMap<>();
+                   for (Category category : categories) {
+                       map.put(category.getId(), category);
+                   }
+
+                   return map;
+                });
     }
 }

@@ -8,6 +8,7 @@ import androidx.room.Update;
 
 import java.util.List;
 
+import io.reactivex.Flowable;
 import vianh.nva.moneymanager.data.entity.Category;
 
 @Dao
@@ -21,6 +22,9 @@ public interface CategoryDao {
     // Money type
     @Query("SELECT * FROM category WHERE type = :type")
     LiveData<List<Category>> getCategoriesByType(int type);
+
+    @Query("SELECT * FROM category")
+    Flowable<List<Category>> getAllCategory();
 
     @Query("delete from category")
     void deleteAll();

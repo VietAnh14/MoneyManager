@@ -2,7 +2,6 @@ package vianh.nva.moneymanager.data.dao;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
-import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
@@ -21,7 +20,7 @@ public interface MoneyDao {
     @Query("SELECT * FROM money where date = :date")
     LiveData<List<Money>> getMoneyByDate(Date date);
 
-    @Query("SELECT * FROM money where CAST(strftime('%m', DATETIME(date/1000, 'unixepoch')) AS INT) = :month")
+    @Query("SELECT * FROM money where CAST(strftime('%m', DATETIME(date/1000, 'unixepoch')) AS INT) = :month ORDER BY date ASC")
     Flowable<List<Money>> getMoneyByMonth(int month);
 
     @Query("Delete from money")
