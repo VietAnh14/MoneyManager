@@ -11,6 +11,7 @@ import io.reactivex.Completable;
 import io.reactivex.Flowable;
 import vianh.nva.moneymanager.data.entity.Category;
 import vianh.nva.moneymanager.data.entity.Money;
+import vianh.nva.moneymanager.data.entity.TotalMoneyDisplay;
 
 public class AppRepository {
 
@@ -53,5 +54,9 @@ public class AppRepository {
 
     public Flowable<List<Category>> getAllCategory() {
         return db.categoryDao().getAllCategory();
+    }
+
+    public Flowable<List<TotalMoneyDisplay>> getTotalMoneyByMonthYear(int month, int year) {
+        return db.moneyDao().getTotalMoneyByMonthAndYear(month, year);
     }
 }

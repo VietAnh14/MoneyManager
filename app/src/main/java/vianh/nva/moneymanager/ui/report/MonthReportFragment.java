@@ -1,6 +1,7 @@
 package vianh.nva.moneymanager.ui.report;
 
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,26 +18,34 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
+import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.PercentFormatter;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import vianh.nva.moneymanager.R;
+import vianh.nva.moneymanager.Utils;
+import vianh.nva.moneymanager.data.entity.TotalMoneyDisplay;
 import vianh.nva.moneymanager.databinding.FragmentMonthReportBinding;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class MonthReportFragment extends Fragment implements AdapterView.OnItemSelectedListener {
+    public final String TAG = this.getClass().getSimpleName();
     private MonthReportViewModel viewModel;
     ArrayAdapter<CharSequence> spinnerMonthAdapter;
     ArrayAdapter<String> spinnerYearAdapter;
     private FragmentMonthReportBinding binding;
     private Calendar calendar = Calendar.getInstance();
+    private float totalMoney = 0f;
     public MonthReportFragment() {
         // Required empty public constructor
     }
@@ -57,7 +66,7 @@ public class MonthReportFragment extends Fragment implements AdapterView.OnItemS
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView(binding);
-        setupChart();
+        setupData(calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.YEAR));
     }
 
     public void initView(FragmentMonthReportBinding binding) {
@@ -81,17 +90,39 @@ public class MonthReportFragment extends Fragment implements AdapterView.OnItemS
         Log.d("adapter", "set adapter");
     }
 
-    public void setupChart() {
-        List<PieEntry> entries = new ArrayList<>();
-        entries.add(new PieEntry(18.5f, "Green"));
-        entries.add(new PieEntry(26.7f, "Yellow"));
-        entries.add(new PieEntry(24.0f, "Red"));
-        entries.add(new PieEntry(30.8f, "Blue"));
+    public void setupChart(List<TotalMoneyDisplay> listMoney) {
+        binding.chart.setUsePercentValues(true);
+        binding.chart.getDescription().setEnabled(false);
+        binding.chart.setCenterText("Bieu do thu chi thang");
+        binding.chart.setCenterTextColor(R.color.darkBlueMaterial);
+        binding.chart.setDrawHoleEnabled(true);
+        binding.chart.setHoleColor(Color.WHITE);
+        binding.chart.animateY(1400, Easing.EaseInOutQuad);
+        binding.chart.setTransparentCircleAlpha(110);
+        binding.chart.getLegend().setEnabled(false);
+        binding.chart.setHoleRadius(58f);
+        binding.chart.setTransparentCircleRadius(61f);
 
-        PieDataSet set = new PieDataSet(entries, "Election Results");
-        set.setColors(new int[] {R.color.greenMaterial, R.color.blueMaterial,
-                R.color.pinkMaterial, R.color.yellowMaterial}, getContext());
+
+        List<PieEntry> entries = new ArrayList<>();
+        ArrayList<Integer> colors = new ArrayList<>();
+        for (TotalMoneyDisplay money : listMoney) {
+            colors.add(getResources().getColor(Utils.getResId(money.getColorName(), R.color.class)));
+            float percent = Math.round((money.getTotalMoney() / viewModel.getTotal()) * 10000) / 100;
+            entries.add(new PieEntry(percent, money.getDescription()));
+            Log.d(TAG, "percent " + percent);
+            Log.d(TAG, money.getColorName());
+        }
+
+        PieDataSet set = new PieDataSet(entries, "Money report");
+        set.setSliceSpace(5f);
+        set.setValueTextColor(R.color.black);
+        set.setSelectionShift(6f);
+        set.setColors(colors);
         PieData data = new PieData(set);
+        data.setValueTextSize(15f);
+        data.setValueFormatter(new PercentFormatter(binding.chart));
+        data.setValueTextColor(R.color.black);
         binding.chart.setData(data);
         binding.chart.invalidate();
     }
@@ -105,5 +136,22 @@ public class MonthReportFragment extends Fragment implements AdapterView.OnItemS
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
 
+    }
+
+    public void setupData(int month, int year) {
+        viewModel.getCompositeDisposable().add(
+                viewModel.getTotalMoney(month, year)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                                listMoney -> {
+                                    Log.d(TAG, "list money retrieve" + listMoney.size());
+                                    setupChart(listMoney);
+                                },
+                                throwable -> {
+                                    Log.e(TAG, "can't get list money", throwable);
+                                }
+                        )
+        );
     }
 }

@@ -54,15 +54,28 @@ public abstract class AppDatabase extends RoomDatabase {
             categoryDao = appDatabase.categoryDao();
         }
 
+
         // populate database after database is created
         @Override
         protected Void doInBackground(Void... voids) {
+
             categoryDao.deleteAll();
             Category category = new Category("ic_calendar",
                     "colorPrimary", "An uong", Money.TYPE_SPEND);
-            for (int i = 0; i < 15; i++) {
-                categoryDao.insert(category);
-            }
+
+            Category party = new Category("ic_calendar",
+                    "pinkMaterial", "Party", Money.TYPE_SPEND);
+
+            Category shoping = new Category("ic_calendar",
+                    "purpleBlueMaterial", "Shoping", Money.TYPE_SPEND);
+
+            Category driving = new Category("ic_calendar",
+                    "orangeMaterial", "Driving", Money.TYPE_SPEND);
+
+            categoryDao.insert(category);
+            categoryDao.insert(party);
+            categoryDao.insert(shoping);
+            categoryDao.insert(driving);
             category.setType(Money.TYPE_EARN);
             for (int i = 0; i < 10; i++) {
                 categoryDao.insert(category);

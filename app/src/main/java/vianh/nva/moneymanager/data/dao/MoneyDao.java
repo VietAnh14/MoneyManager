@@ -10,6 +10,7 @@ import java.util.List;
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
 import vianh.nva.moneymanager.data.entity.Money;
+import vianh.nva.moneymanager.data.entity.TotalMoneyDisplay;
 
 @Dao
 public interface MoneyDao {
@@ -24,4 +25,9 @@ public interface MoneyDao {
 
     @Query("Delete from money")
     Completable deleteAll();
+
+    @Query("SELECT total(money) AS totalMoney, money.type, day, month, year, description, iconName, colorName " +
+            "FROM money INNER JOIN category ON money.categoryId = category.id " +
+            "WHERE month = :month AND year = :year GROUP BY money.categoryId")
+    Flowable<List<TotalMoneyDisplay>> getTotalMoneyByMonthAndYear(int month, int year);
 }
