@@ -128,14 +128,16 @@ public class OutcomeFragment extends Fragment implements DatePickerDialog.OnDate
         // TODO: refactor this to use data binding
         btnInsertSpentMoney.setOnClickListener(
                 v -> {
-                    Date spentDate = c.getTime();
+                    int day = c.get(Calendar.DAY_OF_MONTH);
+                    int year = c.get(Calendar.YEAR);
+                    int month = c.get(Calendar.MONTH) + 1;
                     String note = noteText.getText().toString();
                     Float spent = 0f;
                     if (txbMoney.getText() != null) {
                         spent = Float.valueOf(txbMoney.getText().toString());
                     }
                     int categoryId = adapter.getSelectedId();
-                    Money money = new Money(spentDate, note, spent, categoryId, Money.TYPE_SPEND);
+                    Money money = new Money(note, spent, categoryId, day, month, year, Money.TYPE_SPEND);
                     compositeDisposable.add(
                             mViewModel.insertMoney(money)
                                     .subscribeOn(Schedulers.io())

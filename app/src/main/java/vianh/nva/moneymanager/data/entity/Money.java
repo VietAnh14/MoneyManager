@@ -6,10 +6,8 @@ import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-import java.util.Date;
-
 @Entity(tableName = "money",
-        indices = {@Index("date"), @Index("type"), @Index("categoryId")},
+        indices = {@Index("type"), @Index("categoryId")},
         foreignKeys = @ForeignKey(entity = Category.class,
                 parentColumns = "id", childColumns = "categoryId"))
 public class Money {
@@ -19,21 +17,22 @@ public class Money {
     @Ignore
     public static final int TYPE_EARN = 1;
 
-    @Ignore
-    public Money(Date date, String note, Float money, int categoryId, int type) {
-        this.date = date;
-        this.note = note;
-        this.money = money;
-        this.categoryId = categoryId;
-        this.type = type;
-    }
 
     public Money() {}
 
+    @Ignore
+    public Money(String note, Float money, int categoryId, int day, int month, int year, int type) {
+        this.note = note;
+        this.money = money;
+        this.categoryId = categoryId;
+        this.day = day;
+        this.month = month;
+        this.year = year;
+        this.type = type;
+    }
+
     @PrimaryKey(autoGenerate = true)
     private int id;
-
-    private Date date;
 
     public int getId() {
         return id;
@@ -41,14 +40,6 @@ public class Money {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
     }
 
     public String getNote() {
@@ -83,9 +74,36 @@ public class Money {
         this.type = type;
     }
 
+    public int getDay() {
+        return day;
+    }
+
+    public void setDay(int day) {
+        this.day = day;
+    }
+
+    public int getMonth() {
+        return month;
+    }
+
+    public void setMonth(int month) {
+        this.month = month;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
     private String note;
     private Float money;
     private int categoryId;
+    private int day;
+    private int month;
+    private int year;
 
     // Type of money, earn or spend
     private int type;

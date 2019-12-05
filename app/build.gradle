@@ -28,6 +28,10 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
@@ -55,4 +59,7 @@ dependencies {
 
     // calendar view
     implementation 'com.applandeo:material-calendar-view:1.7.0'
+
+    // chart
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 }

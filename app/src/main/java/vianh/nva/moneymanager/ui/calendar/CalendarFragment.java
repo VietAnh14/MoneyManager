@@ -80,7 +80,7 @@ public class CalendarFragment extends Fragment implements OnCalendarPageChangeLi
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(moneyAdapter);
-        setupData(calendar.get(Calendar.MONTH) + 1);
+        setupData(calendar);
     }
 
     @Override
@@ -92,12 +92,14 @@ public class CalendarFragment extends Fragment implements OnCalendarPageChangeLi
     @Override
     public void onChange() {
         Calendar c = calendarView.getCurrentPageDate();
-        setupData(c.get(Calendar.MONTH) + 1);
+        setupData(c);
     }
 
-    private void setupData(int month) {
+    private void setupData(Calendar calendar) {
+        int month = calendar.get(Calendar.MONTH) + 1;
+        int year = calendar.get(Calendar.YEAR);
         // TODO: Refactor this
-        compositeDisposable.add(calendarViewModel.getListMoneyByMonth(month)
+        compositeDisposable.add(calendarViewModel.getListMoneyByMonthAndYear(month, year)
                 .subscribeOn(Schedulers.io())
                 .map(monies -> {        // map list money to list event
                     List<EventDay> events = new ArrayList<>();
@@ -105,13 +107,13 @@ public class CalendarFragment extends Fragment implements OnCalendarPageChangeLi
                     listItem.clear();
                     for (Money money : monies) {
                         Calendar date = Calendar.getInstance();
-                        date.setTime(money.getDate());
+                        date.set(money.getYear(), money.getMonth() -1, money.getDay());
                         events.add(new EventDay(date, R.drawable.ic_calendar));
 
                         // handle money for adapter
                         if (date.get(Calendar.DAY_OF_MONTH) != tempDate) {
                             MoneyApdaterHeader header = new MoneyApdaterHeader();
-                            header.setDate(money.getDate());
+                            header.setCalendar(date);
                             listItem.add(header);
                             tempDate = date.get(Calendar.DAY_OF_MONTH);
                         }

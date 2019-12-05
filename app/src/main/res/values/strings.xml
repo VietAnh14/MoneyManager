@@ -13,4 +13,22 @@
     <string name="ngay">Ngày</string>
     <string name="add_note">Nhập ghi chú</string>
     <string name="title_calendar">Calendar</string>
+    <string name="title_report">Report</string>
+    <string name="month">Thang</string>
+    <string name="year">Nam</string>
+    
+    <string-array name="monthArray">
+        <item>Thang 1</item>
+        <item>Thang 2</item>
+        <item>Thang 3</item>
+        <item>Thang 4</item>
+        <item>Thang 5</item>
+        <item>Thang 6</item>
+        <item>Thang 7</item>
+        <item>Thang 8</item>
+        <item>Thang 9</item>
+        <item>Thang 10</item>
+        <item>Thang 11</item>
+        <item>Thang 12</item>
+    </string-array>
 </resources>

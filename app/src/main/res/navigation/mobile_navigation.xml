@@ -20,6 +20,6 @@
     <fragment
         android:id="@+id/navigation_notifications"
         android:name="vianh.nva.moneymanager.ui.report.ReportFragment"
-        android:label="@string/title_notifications"
+        android:label="@string/title_report"
         tools:layout="@layout/fragment_report" />
 </navigation>

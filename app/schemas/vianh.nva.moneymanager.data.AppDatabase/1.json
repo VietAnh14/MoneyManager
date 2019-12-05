@@ -2,23 +2,17 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "e01fcca92edd2ef12182e455b8045028",
+    "identityHash": "3d5044f2d6cf230bbc279d1b9ffebe62",
     "entities": [
       {
         "tableName": "money",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `date` INTEGER, `note` TEXT, `money` REAL, `categoryId` INTEGER NOT NULL, `type` INTEGER NOT NULL, FOREIGN KEY(`categoryId`) REFERENCES `category`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `note` TEXT, `money` REAL, `categoryId` INTEGER NOT NULL, `day` INTEGER NOT NULL, `month` INTEGER NOT NULL, `year` INTEGER NOT NULL, `type` INTEGER NOT NULL, FOREIGN KEY(`categoryId`) REFERENCES `category`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
         "fields": [
           {
             "fieldPath": "id",
             "columnName": "id",
             "affinity": "INTEGER",
             "notNull": true
-          },
-          {
-            "fieldPath": "date",
-            "columnName": "date",
-            "affinity": "INTEGER",
-            "notNull": false
           },
           {
             "fieldPath": "note",
@@ -39,6 +33,24 @@
             "notNull": true
           },
           {
+            "fieldPath": "day",
+            "columnName": "day",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "month",
+            "columnName": "month",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "year",
+            "columnName": "year",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
             "fieldPath": "type",
             "columnName": "type",
             "affinity": "INTEGER",
@@ -53,20 +65,12 @@
         },
         "indices": [
           {
-            "name": "index_money_date",
-            "unique": false,
-            "columnNames": [
-              "date"
-            ],
-            "createSql": "CREATE  INDEX `index_money_date` ON `${TABLE_NAME}` (`date`)"
-          },
-          {
             "name": "index_money_type",
             "unique": false,
             "columnNames": [
               "type"
             ],
-            "createSql": "CREATE  INDEX `index_money_type` ON `${TABLE_NAME}` (`type`)"
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_money_type` ON `${TABLE_NAME}` (`type`)"
           },
           {
             "name": "index_money_categoryId",
@@ -74,7 +78,7 @@
             "columnNames": [
               "categoryId"
             ],
-            "createSql": "CREATE  INDEX `index_money_categoryId` ON `${TABLE_NAME}` (`categoryId`)"
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_money_categoryId` ON `${TABLE_NAME}` (`categoryId`)"
           }
         ],
         "foreignKeys": [
@@ -136,9 +140,10 @@
         "foreignKeys": []
       }
     ],
+    "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"e01fcca92edd2ef12182e455b8045028\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '3d5044f2d6cf230bbc279d1b9ffebe62')"
     ]
   }
 }

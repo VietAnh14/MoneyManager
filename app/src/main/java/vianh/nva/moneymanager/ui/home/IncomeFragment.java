@@ -131,14 +131,16 @@ public class IncomeFragment extends Fragment implements DatePickerDialog.OnDateS
 
         btnInsertEarnMoney.setOnClickListener(
                 v -> {
-                    Date spentDate = c.getTime();
+                    int month = c.get(Calendar.MONTH) + 1;
+                    int year = c.get(Calendar.YEAR);
+                    int day = c.get(Calendar.DAY_OF_MONTH);
                     String note = noteText.getText().toString();
                     Float spent = 0f;
                     if (txbMoney.getText() != null) {
                         spent = Float.valueOf(txbMoney.getText().toString());
                     }
                     int categoryId = adapter.getSelectedId();
-                    Money money = new Money(spentDate, note, spent, categoryId, Money.TYPE_EARN);
+                    Money money = new Money(note, spent, categoryId, day, month, year, Money.TYPE_EARN);
                     compositeDisposable.add(
                             mViewModel.insertMoney(money)
                                     .subscribeOn(Schedulers.io())

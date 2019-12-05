@@ -52,7 +52,7 @@ public class MoneyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         AdapterItem item = listItem.get(position);
         if (item.getType() == AdapterItem.TYPE_DATE) {
             ((HeaderViewHolder) holder).textDate
-                    .setText(simpleDateFormat.format(((MoneyApdaterHeader) item).getDate()));
+                    .setText(simpleDateFormat.format(((MoneyApdaterHeader) item).getCalendar().getTime()));
         } else {
             holder = (ItemViewHolder) holder;
             item = (MoneyAdapterItem) item;

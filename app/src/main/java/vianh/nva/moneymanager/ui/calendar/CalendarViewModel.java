@@ -27,8 +27,8 @@ public class CalendarViewModel extends AndroidViewModel {
         repository = AppRepository.getInstance(application);
     }
 
-    public Flowable<List<Money>> getListMoneyByMonth(int month) {
-        return repository.getListMoneyByMonth(month);
+    public Flowable<List<Money>> getListMoneyByMonthAndYear(int month, int year) {
+        return repository.getListMoneyByMonthAndYear(month, year);
     }
 
     public Flowable<HashMap<Integer, Category>> getMapCategory() {

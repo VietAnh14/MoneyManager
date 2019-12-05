@@ -47,8 +47,8 @@ public class AppRepository {
         return db.moneyDao().insert(money);
     }
 
-    public Flowable<List<Money>> getListMoneyByMonth(int month) {
-        return db.moneyDao().getMoneyByMonth(month);
+    public Flowable<List<Money>> getListMoneyByMonthAndYear(int month, int year) {
+        return db.moneyDao().getMoneyByMonthAndYear(month, year);
     }
 
     public Flowable<List<Category>> getAllCategory() {
