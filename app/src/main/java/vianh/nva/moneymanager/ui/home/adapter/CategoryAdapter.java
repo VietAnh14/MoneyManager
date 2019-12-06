@@ -61,21 +61,13 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ItemVi
         holder.categoryDesc.setText(desc);
 
         if (list.get(position).getType() != TYPE_SETTING) {
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    notifyItemChanged(selectedPosition);
-                    selectedPosition = position;
-                    notifyItemChanged(selectedPosition);
-                }
+            holder.itemView.setOnClickListener(view -> {
+                notifyItemChanged(selectedPosition);
+                selectedPosition = position;
+                notifyItemChanged(selectedPosition);
             });
         } else
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Log.d("CategoryAdapter", "Setting clicked");
-                }
-            });
+            holder.itemView.setOnClickListener(view -> Log.d("CategoryAdapter", "Setting clicked"));
     }
 
     @Override

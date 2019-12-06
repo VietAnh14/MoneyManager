@@ -5,7 +5,9 @@
             name="viewmodel"
             type="vianh.nva.moneymanager.ui.report.MonthReportViewModel" />
     </data>
-
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -135,4 +137,5 @@
             tools:listitem="@layout/money_item" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
 </layout>

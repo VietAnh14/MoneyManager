@@ -9,6 +9,8 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -34,6 +36,7 @@ import vianh.nva.moneymanager.R;
 import vianh.nva.moneymanager.Utils;
 import vianh.nva.moneymanager.data.entity.TotalMoneyDisplay;
 import vianh.nva.moneymanager.databinding.FragmentMonthReportBinding;
+import vianh.nva.moneymanager.ui.report.adapter.TotalMoneyAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -46,6 +49,7 @@ public class MonthReportFragment extends Fragment implements AdapterView.OnItemS
     private FragmentMonthReportBinding binding;
     private Calendar calendar = Calendar.getInstance();
     private float totalMoney = 0f;
+    private TotalMoneyAdapter adapter;
     public MonthReportFragment() {
         // Required empty public constructor
     }
@@ -88,6 +92,11 @@ public class MonthReportFragment extends Fragment implements AdapterView.OnItemS
         binding.spinnerMonth.setSelection(calendar.get(Calendar.MONTH));
         binding.spinnerYear.setSelection(calendar.get(Calendar.YEAR) - 2000);
         Log.d("adapter", "set adapter");
+
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+        adapter = new TotalMoneyAdapter(null);
+        binding.recyclerView.setLayoutManager(layoutManager);
+        binding.recyclerView.setAdapter(adapter);
     }
 
     public void setupChart(List<TotalMoneyDisplay> listMoney) {
@@ -147,6 +156,7 @@ public class MonthReportFragment extends Fragment implements AdapterView.OnItemS
                                 listMoney -> {
                                     Log.d(TAG, "list money retrieve" + listMoney.size());
                                     setupChart(listMoney);
+                                    adapter.setTotalMoneyDisplays(listMoney);
                                 },
                                 throwable -> {
                                     Log.e(TAG, "can't get list money", throwable);

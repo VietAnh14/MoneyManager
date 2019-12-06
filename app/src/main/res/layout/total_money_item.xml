@@ -37,14 +37,6 @@
         android:textStyle="bold"
         android:textSize="16sp"
         android:layout_centerVertical="true"
-        android:layout_toStartOf="@id/iconArrow"
-        android:text="500.000" />
-    <ImageView
-        android:id="@+id/iconArrow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_chevron_right_black_24dp"
         android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true"
-        android:layout_marginEnd="@dimen/app_margin" />
+        android:text="500.000" />
 </RelativeLayout>
