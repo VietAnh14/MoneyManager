@@ -18,7 +18,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Toast;
 
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.data.PieData;
@@ -34,6 +33,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import vianh.nva.moneymanager.R;
 import vianh.nva.moneymanager.Utils;
+import vianh.nva.moneymanager.data.entity.Money;
 import vianh.nva.moneymanager.data.entity.TotalMoneyDisplay;
 import vianh.nva.moneymanager.databinding.FragmentMonthReportBinding;
 import vianh.nva.moneymanager.ui.report.adapter.TotalMoneyAdapter;
@@ -48,8 +48,10 @@ public class MonthReportFragment extends Fragment implements AdapterView.OnItemS
     ArrayAdapter<String> spinnerYearAdapter;
     private FragmentMonthReportBinding binding;
     private Calendar calendar = Calendar.getInstance();
-    private float totalMoney = 0f;
-    private TotalMoneyAdapter adapter;
+    private TotalMoneyAdapter adapter = new TotalMoneyAdapter(null);
+    private Boolean isSpend = true;
+    private List<TotalMoneyDisplay> listSpend;
+    private List<TotalMoneyDisplay> listEarn;
     public MonthReportFragment() {
         // Required empty public constructor
     }
@@ -67,13 +69,19 @@ public class MonthReportFragment extends Fragment implements AdapterView.OnItemS
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        initView(binding);
-        setupData(calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.YEAR));
+    public void onStop() {
+        super.onStop();
+        viewModel.getCompositeDisposable().clear();
     }
 
-    public void initView(FragmentMonthReportBinding binding) {
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        setupData(calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.YEAR));
+        initView(binding);
+    }
+
+    private void initView(FragmentMonthReportBinding binding) {
         spinnerMonthAdapter = ArrayAdapter.createFromResource(getContext(),
                 R.array.monthArray, android.R.layout.simple_spinner_item);
         spinnerMonthAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -93,31 +101,57 @@ public class MonthReportFragment extends Fragment implements AdapterView.OnItemS
         binding.spinnerYear.setSelection(calendar.get(Calendar.YEAR) - 2000);
         Log.d("adapter", "set adapter");
 
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
-        adapter = new TotalMoneyAdapter(null);
-        binding.recyclerView.setLayoutManager(layoutManager);
-        binding.recyclerView.setAdapter(adapter);
-    }
-
-    public void setupChart(List<TotalMoneyDisplay> listMoney) {
         binding.chart.setUsePercentValues(true);
         binding.chart.getDescription().setEnabled(false);
         binding.chart.setCenterText("Bieu do thu chi thang");
         binding.chart.setCenterTextColor(R.color.darkBlueMaterial);
         binding.chart.setDrawHoleEnabled(true);
         binding.chart.setHoleColor(Color.WHITE);
-        binding.chart.animateY(1400, Easing.EaseInOutQuad);
         binding.chart.setTransparentCircleAlpha(110);
         binding.chart.getLegend().setEnabled(false);
         binding.chart.setHoleRadius(58f);
         binding.chart.setTransparentCircleRadius(61f);
 
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+        binding.recyclerView.setLayoutManager(layoutManager);
+        binding.recyclerView.setAdapter(adapter);
 
+        binding.btnEarn.setOnClickListener(view -> {
+            if (isSpend) {
+                isSpend = false;
+                binding.btnEarn.setTextColor(getResources().getColor(R.color.purpleMaterial));
+                binding.btnSpend.setTextColor(getResources().getColor(R.color.black));
+                setupDataRecyclerView();
+                setupChart(listEarn);
+            }
+        });
+
+        binding.btnSpend.setOnClickListener(v -> {
+            if (!isSpend) {
+                isSpend = true;
+                binding.btnSpend.setTextColor(getResources().getColor(R.color.purpleMaterial));
+                binding.btnEarn.setTextColor(getResources().getColor(R.color.black));
+                setupDataRecyclerView();
+                setupChart(listSpend);
+            }
+        });
+
+        binding.btnSpend.setTextColor(getResources().getColor(R.color.purpleMaterial));
+    }
+
+    private void setupChart(List<TotalMoneyDisplay> listMoney) {
         List<PieEntry> entries = new ArrayList<>();
         ArrayList<Integer> colors = new ArrayList<>();
+        float total = 0f;
+        if (listMoney.size() > 0 && listMoney.get(0).getType() == Money.TYPE_SPEND) {
+            total = viewModel.getTotalSpend();
+        } else {
+            total = viewModel.getTotalEarn();
+        }
+
         for (TotalMoneyDisplay money : listMoney) {
             colors.add(getResources().getColor(Utils.getResId(money.getColorName(), R.color.class)));
-            float percent = Math.round((money.getTotalMoney() / viewModel.getTotal()) * 10000) / 100;
+            float percent = Math.round((money.getTotalMoney() / total) * 10000) / 100;
             entries.add(new PieEntry(percent, money.getDescription()));
             Log.d(TAG, "percent " + percent);
             Log.d(TAG, money.getColorName());
@@ -133,13 +167,18 @@ public class MonthReportFragment extends Fragment implements AdapterView.OnItemS
         data.setValueFormatter(new PercentFormatter(binding.chart));
         data.setValueTextColor(R.color.black);
         binding.chart.setData(data);
-        binding.chart.invalidate();
+        binding.chart.animateY(1400, Easing.EaseInOutQuad);
     }
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long id) {
-        String text = String.valueOf(binding.spinnerMonth.getSelectedItemPosition()) + binding.spinnerYear.getSelectedItemPosition();
-        Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
+//        String text = String.valueOf(binding.spinnerMonth.getSelectedItemPosition()) + binding.spinnerYear.getSelectedItemPosition();
+//        Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
+        if (isSpend) {
+            setupData(binding.spinnerMonth.getSelectedItemPosition() + 1, binding.spinnerYear.getSelectedItemPosition() + 2000);
+        } else {
+
+        }
     }
 
     @Override
@@ -147,21 +186,57 @@ public class MonthReportFragment extends Fragment implements AdapterView.OnItemS
 
     }
 
-    public void setupData(int month, int year) {
+    private void setupData(int month, int year) {
         viewModel.getCompositeDisposable().add(
-                viewModel.getTotalMoney(month, year)
+                viewModel.getTotalMoneySpend(month, year)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
                                 listMoney -> {
                                     Log.d(TAG, "list money retrieve" + listMoney.size());
-                                    setupChart(listMoney);
+                                    listSpend = listMoney;
+                                    setupDataRecyclerView();
+                                    if (isSpend) {
+                                        setupChart(listSpend);
+                                    } else {
+                                        setupChart(listEarn);
+                                    }
                                     adapter.setTotalMoneyDisplays(listMoney);
                                 },
-                                throwable -> {
-                                    Log.e(TAG, "can't get list money", throwable);
-                                }
+                                throwable -> Log.e(TAG, "can't get list money", throwable)
                         )
         );
+
+        viewModel.getCompositeDisposable().add(
+                viewModel.getTotalMoneyEarn(month, year)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                                listMoney -> {
+                                    Log.d(TAG, "list money retrieve" + listMoney.size());
+                                    listEarn = listMoney;
+                                    setupDataRecyclerView();
+                                    if (isSpend) {
+                                        setupChart(listSpend);
+                                    } else {
+                                        setupChart(listEarn);
+                                    }
+//                                    adapter.setTotalMoneyDisplays(listMoney);
+
+                                },
+                                throwable -> Log.e(TAG, "-can't get list money", throwable)
+                        )
+        );
+    }
+
+    private void setupDataRecyclerView() {
+        if (isSpend) {
+            adapter.setTotalMoneyDisplays(listSpend);
+        } else {
+            adapter.setTotalMoneyDisplays(listEarn);
+        }
+        binding.earnMoneyText.setText(String.valueOf(viewModel.getTotalEarn()));
+        binding.spendMoneyText.setText(String.valueOf(-1 * viewModel.getTotalSpend()));
+        binding.totalMoneyText.setText(String.valueOf(viewModel.getTotalEarn() - viewModel.getTotalSpend()));
     }
 }

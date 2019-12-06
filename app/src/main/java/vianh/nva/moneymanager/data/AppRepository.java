@@ -56,7 +56,11 @@ public class AppRepository {
         return db.categoryDao().getAllCategory();
     }
 
-    public Flowable<List<TotalMoneyDisplay>> getTotalMoneyByMonthYear(int month, int year) {
-        return db.moneyDao().getTotalMoneyByMonthAndYear(month, year);
+    public Flowable<List<TotalMoneyDisplay>> getTotalMoneyEarnByMonthYear(int month, int year) {
+        return db.moneyDao().getTotalMoneyEarnByMonthAndYear(month, year);
+    }
+
+    public Flowable<List<TotalMoneyDisplay>> getTotalMoneySpendByMonthYear(int month, int year) {
+        return db.moneyDao().getTotalMoneySpendByMonthAndYear(month, year);
     }
 }

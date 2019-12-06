@@ -1,5 +1,7 @@
 package vianh.nva.moneymanager.data.entity;
 
+import androidx.room.Ignore;
+
 public class TotalMoneyDisplay {
     private float totalMoney;
     private int type;
@@ -13,6 +15,7 @@ public class TotalMoneyDisplay {
     public TotalMoneyDisplay() {
     }
 
+    @Ignore
     public TotalMoneyDisplay(float totalMoney, int type, int day, int month, int year, String iconName, String colorName, String description) {
         this.totalMoney = totalMoney;
         this.type = type;

@@ -28,6 +28,11 @@ public interface MoneyDao {
 
     @Query("SELECT total(money) AS totalMoney, money.type, day, month, year, description, iconName, colorName " +
             "FROM money INNER JOIN category ON money.categoryId = category.id " +
-            "WHERE month = :month AND year = :year GROUP BY money.categoryId")
-    Flowable<List<TotalMoneyDisplay>> getTotalMoneyByMonthAndYear(int month, int year);
+            "WHERE month = :month AND year = :year AND money.type = 1 GROUP BY money.categoryId")
+    Flowable<List<TotalMoneyDisplay>> getTotalMoneyEarnByMonthAndYear(int month, int year);
+
+    @Query("SELECT total(money) AS totalMoney, money.type, day, month, year, description, iconName, colorName " +
+            "FROM money INNER JOIN category ON money.categoryId = category.id " +
+            "WHERE month = :month AND year = :year AND money.type = 0 GROUP BY money.categoryId")
+    Flowable<List<TotalMoneyDisplay>> getTotalMoneySpendByMonthAndYear(int month, int year);
 }

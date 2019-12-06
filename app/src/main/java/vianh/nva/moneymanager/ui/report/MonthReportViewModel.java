@@ -17,25 +17,37 @@ import vianh.nva.moneymanager.data.entity.TotalMoneyDisplay;
 public class MonthReportViewModel extends AndroidViewModel {
     private AppRepository appRepository;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
-    private float total = 0f;
+    private float totalEarn = 0f;
+    private float totalSpend = 0f;
 
     public MonthReportViewModel(@NonNull Application application) {
         super(application);
         appRepository = AppRepository.getInstance(application);
     }
 
-    public Flowable<List<TotalMoneyDisplay>> getTotalMoney(int month, int year) {
-        return appRepository.getTotalMoneyByMonthYear(month, year).map(
+    public Flowable<List<TotalMoneyDisplay>> getTotalMoneyEarn(int month, int year) {
+        return appRepository.getTotalMoneyEarnByMonthYear(month, year).map(
                 totalMoneyDisplays -> {
                     float totalMoney = 0f;
                     for (TotalMoneyDisplay money : totalMoneyDisplays) {
-                        if (money.getType() == Money.TYPE_SPEND) {
-                            money.setTotalMoney(-1 * money.getTotalMoney());
-                        }
                         totalMoney += money.getTotalMoney();
                     }
-                    total = totalMoney;
-                    return  totalMoneyDisplays;
+                    totalEarn = totalMoney;
+                    return totalMoneyDisplays;
+                }
+        );
+    }
+
+    public Flowable<List<TotalMoneyDisplay>> getTotalMoneySpend(int month, int year) {
+        return appRepository.getTotalMoneySpendByMonthYear(month, year).map(
+                totalMoneyDisplays -> {
+                    float totalMoney = 0f;
+                    for (TotalMoneyDisplay money : totalMoneyDisplays) {
+                        money.setTotalMoney(-1 * money.getTotalMoney());
+                        totalMoney += money.getTotalMoney();
+                    }
+                    totalSpend = totalMoney;
+                    return totalMoneyDisplays;
                 }
         );
     }
@@ -44,7 +56,11 @@ public class MonthReportViewModel extends AndroidViewModel {
         return compositeDisposable;
     }
 
-    public float getTotal() {
-        return total;
+    public float getTotalEarn() {
+        return totalEarn;
+    }
+
+    public float getTotalSpend() {
+        return totalSpend;
     }
 }
