@@ -42,10 +42,8 @@ import vianh.nva.moneymanager.ui.report.adapter.TotalMoneyAdapter;
  * A simple {@link Fragment} subclass.
  */
 public class MonthReportFragment extends Fragment implements AdapterView.OnItemSelectedListener {
-    public final String TAG = this.getClass().getSimpleName();
+    private final String TAG = this.getClass().getSimpleName();
     private MonthReportViewModel viewModel;
-    ArrayAdapter<CharSequence> spinnerMonthAdapter;
-    ArrayAdapter<String> spinnerYearAdapter;
     private FragmentMonthReportBinding binding;
     private Calendar calendar = Calendar.getInstance();
     private TotalMoneyAdapter adapter = new TotalMoneyAdapter(null);
@@ -78,11 +76,11 @@ public class MonthReportFragment extends Fragment implements AdapterView.OnItemS
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setupData(calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.YEAR));
-        initView(binding);
+        initView();
     }
 
-    private void initView(FragmentMonthReportBinding binding) {
-        spinnerMonthAdapter = ArrayAdapter.createFromResource(getContext(),
+    private void initView() {
+        ArrayAdapter<CharSequence> spinnerMonthAdapter = ArrayAdapter.createFromResource(getContext(),
                 R.array.monthArray, android.R.layout.simple_spinner_item);
         spinnerMonthAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
@@ -90,7 +88,7 @@ public class MonthReportFragment extends Fragment implements AdapterView.OnItemS
         for(int i = 2000; i <= 2050; i++) {
             years.add("Nam" + i);
         }
-        spinnerYearAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, years);
+        ArrayAdapter<String> spinnerYearAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, years);
         spinnerYearAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         binding.spinnerMonth.setAdapter(spinnerMonthAdapter);
