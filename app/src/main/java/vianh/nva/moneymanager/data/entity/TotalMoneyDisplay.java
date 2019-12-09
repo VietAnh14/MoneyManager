@@ -2,7 +2,9 @@ package vianh.nva.moneymanager.data.entity;
 
 import androidx.room.Ignore;
 
-public class TotalMoneyDisplay {
+import java.io.Serializable;
+
+public class TotalMoneyDisplay implements Serializable {
     private float totalMoney;
     private int type;
     private int day;

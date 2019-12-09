@@ -1,6 +1,7 @@
 package vianh.nva.moneymanager.ui.home;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -27,6 +28,7 @@ public class HomeViewModel extends AndroidViewModel {
     }
 
     public LiveData<List<Category>> getListCategorySpend() {
+//        Log.d("Home viewmodel", String.valueOf(listCategorySpend.getValue().size()));
         return listCategorySpend;
     }
 

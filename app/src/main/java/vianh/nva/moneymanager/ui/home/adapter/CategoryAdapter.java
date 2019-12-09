@@ -1,7 +1,7 @@
 package vianh.nva.moneymanager.ui.home.adapter;
 
 import android.content.Context;
-import android.util.Log;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,8 +18,9 @@ import java.util.List;
 import vianh.nva.moneymanager.R;
 import vianh.nva.moneymanager.Utils;
 import vianh.nva.moneymanager.data.entity.Category;
+import vianh.nva.moneymanager.ui.category.ListCategoryActivity;
 
-public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ItemViewHolder> {
+public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ItemViewHolder>{
     private final  int TYPE_SETTING = -1;
 
     private List<Category> list;
@@ -34,10 +36,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ItemVi
     public void setList(List<Category> list) {
 
         // Add a category just to start new activity
-        Category category = new Category("ic_chevron_right_black_24dp",
-                "colorPrimary", "Chinh sua gi do cho no dai ne", -1);
         this.list = list;
-        list.add(category);
         notifyDataSetChanged();
     }
 
@@ -66,8 +65,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ItemVi
                 selectedPosition = position;
                 notifyItemChanged(selectedPosition);
             });
-        } else
-            holder.itemView.setOnClickListener(view -> Log.d("CategoryAdapter", "Setting clicked"));
+        } else {
+            holder.itemView.setOnClickListener( view -> {
+                Intent intent = new Intent(context, ListCategoryActivity.class);
+                context.startActivity(intent);
+            });
+        }
     }
 
     @Override

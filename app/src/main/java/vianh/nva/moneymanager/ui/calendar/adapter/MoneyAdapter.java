@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 
@@ -62,9 +63,11 @@ public class MoneyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
             if (mapCategory != null) {
                 int categoryId = ((MoneyAdapterItem) item).getMoney().getCategoryId();
                 Category category = mapCategory.get(categoryId);
+                assert category != null;
                 int iconId = Utils.getResId(category.getIconName(), R.drawable.class);
-
+                int colorId = Utils.getResId(category.getColorName(), R.color.class);
                 ((ItemViewHolder) holder).categoryIcon.setImageResource(iconId);
+                ((ItemViewHolder) holder).categoryIcon.setColorFilter(ContextCompat.getColor(context, colorId), android.graphics.PorterDuff.Mode.SRC_IN);
                 ((ItemViewHolder) holder).categoryName.setText(category.getDescription());
 
             }

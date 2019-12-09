@@ -2,22 +2,29 @@ package vianh.nva.moneymanager.data.dao;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
 import java.util.List;
 
+import io.reactivex.Completable;
 import io.reactivex.Flowable;
 import vianh.nva.moneymanager.data.entity.Category;
 
 @Dao
 public interface CategoryDao {
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    Completable insert(Category category);
+
     @Insert
-    void insert(Category category);
+    void insertList(List<Category> categoryList);
 
     @Update
-    void update(Category category);
+    Completable update(Category category);
 
     // Money type
     @Query("SELECT * FROM category WHERE type = :type")
@@ -28,4 +35,7 @@ public interface CategoryDao {
 
     @Query("delete from category")
     void deleteAll();
+
+    @Delete
+    Completable delete(Category category);
 }

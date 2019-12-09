@@ -10,6 +10,9 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
+
+import java.util.ArrayList;
+
 import vianh.nva.moneymanager.data.dao.CategoryDao;
 import vianh.nva.moneymanager.data.dao.MoneyDao;
 import vianh.nva.moneymanager.data.entity.Category;
@@ -60,26 +63,29 @@ public abstract class AppDatabase extends RoomDatabase {
         protected Void doInBackground(Void... voids) {
 
             categoryDao.deleteAll();
+            ArrayList<Category> listCategory = new ArrayList<>();
             Category category = new Category("ic_calendar",
                     "colorPrimary", "An uong", Money.TYPE_SPEND);
-
             Category party = new Category("ic_calendar",
                     "pinkMaterial", "Party", Money.TYPE_SPEND);
 
-            Category shoping = new Category("ic_calendar",
+            Category shopping = new Category("ic_calendar",
                     "purpleBlueMaterial", "Shoping", Money.TYPE_SPEND);
 
-            Category driving = new Category("ic_calendar",
+            Category driving = new Category("ic_dish",
                     "orangeMaterial", "Driving", Money.TYPE_SPEND);
+            listCategory.add(category);
+            listCategory.add(party);
+            listCategory.add(shopping);
+            listCategory.add(driving);
+            categoryDao.insertList(listCategory);
 
-            categoryDao.insert(category);
-            categoryDao.insert(party);
-            categoryDao.insert(shoping);
-            categoryDao.insert(driving);
-            category.setType(Money.TYPE_EARN);
-            for (int i = 0; i < 10; i++) {
-                categoryDao.insert(category);
+            for (Category category1 : listCategory) {
+                category1.setType(Money.TYPE_EARN);
             }
+
+            categoryDao.insertList(listCategory);
+
             Log.d("AppDatabase", "inserted");
             return null;
         }

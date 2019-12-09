@@ -24,24 +24,24 @@
     <color name="yellowOrangeMaterial">#FFC107</color>
     <color name="orangeMaterial">#FF9800</color>
     <color name="brightOrangeMaterial">#FF5722</color>
-    <array name="colorList">
-        <item>@color/colorPrimary</item>
-        <item>@color/colorAccent</item>
-        <item>@color/redOrangeMaterial</item>
-        <item>@color/pinkMaterial</item>
-        <item>@color/purpleMaterial</item>
-        <item>@color/purpleBlueMaterial</item>
-        <item>@color/darkBlueMaterial</item>
-        <item>@color/blueMaterial</item>
-        <item>@color/lightBlueMaterial</item>
-        <item>@color/lighterBlueMaterial</item>
-        <item>@color/greenBlueMaterial</item>
-        <item>@color/greenMaterial</item>
-        <item>@color/yellowGreenMaterial</item>
-        <item>@color/lightYellowMaterial</item>
-        <item>@color/yellowMaterial</item>
-        <item>@color/yellowOrangeMaterial</item>
-        <item>@color/orangeMaterial</item>
-        <item>@color/brightOrangeMaterial</item>
-    </array>
+<!--    <array name="colorList">-->
+<!--        <item>@color/colorPrimary</item>-->
+<!--        <item>@color/colorAccent</item>-->
+<!--        <item>@color/redOrangeMaterial</item>-->
+<!--        <item>@color/pinkMaterial</item>-->
+<!--        <item>@color/purpleMaterial</item>-->
+<!--        <item>@color/purpleBlueMaterial</item>-->
+<!--        <item>@color/darkBlueMaterial</item>-->
+<!--        <item>@color/blueMaterial</item>-->
+<!--        <item>@color/lightBlueMaterial</item>-->
+<!--        <item>@color/lighterBlueMaterial</item>-->
+<!--        <item>@color/greenBlueMaterial</item>-->
+<!--        <item>@color/greenMaterial</item>-->
+<!--        <item>@color/yellowGreenMaterial</item>-->
+<!--        <item>@color/lightYellowMaterial</item>-->
+<!--        <item>@color/yellowMaterial</item>-->
+<!--        <item>@color/yellowOrangeMaterial</item>-->
+<!--        <item>@color/orangeMaterial</item>-->
+<!--        <item>@color/brightOrangeMaterial</item>-->
+<!--    </array>-->
 </resources>

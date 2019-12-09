@@ -6,11 +6,13 @@ import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
 @Entity(tableName = "money",
         indices = {@Index("type"), @Index("categoryId")},
         foreignKeys = @ForeignKey(entity = Category.class,
                 parentColumns = "id", childColumns = "categoryId"))
-public class Money {
+public class Money implements Serializable {
     @Ignore
     public static final int TYPE_SPEND = 0;
 

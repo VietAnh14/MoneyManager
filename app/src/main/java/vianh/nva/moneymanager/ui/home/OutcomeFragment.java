@@ -33,6 +33,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import vianh.nva.moneymanager.R;
+import vianh.nva.moneymanager.data.entity.Category;
 import vianh.nva.moneymanager.data.entity.Money;
 import vianh.nva.moneymanager.ui.home.adapter.CategoryAdapter;
 import vianh.nva.moneymanager.ui.view.DatePickerDialogFragment;
@@ -110,8 +111,14 @@ public class OutcomeFragment extends Fragment implements DatePickerDialog.OnDate
         final CategoryAdapter adapter = new CategoryAdapter();
 
         mViewModel.getListCategorySpend().observe(this, categories -> {
+            Category category = new Category("ic_chevron_right_black_24dp",
+                    "colorPrimary", "Chinh sua gi do cho no dai ne", -1);
+            categories.add(category);
             adapter.setList(categories);
-            Log.d("Outcome", "Changed");
+            Log.d("Outcome", String.valueOf(categories.size()));
+            for (Category mCategory : categories) {
+                Log.d("Outcome", category.getDescription());
+            }
         });
 
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 3);

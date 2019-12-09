@@ -71,4 +71,20 @@ public class AppRepository {
     public Flowable<List<TotalMoneyDisplay>> getTotalMoneyEarnByYear(int year) {
         return db.moneyDao().getTotalMoneyEarnByYear(year);
     }
+
+    public Completable insertCategory(Category category) {
+        return db.categoryDao().insert(category);
+    }
+
+    public Completable updateCategory(Category category) {
+        return db.categoryDao().update(category);
+    }
+
+    public Completable deleteCategory(Category category) {
+        return db.categoryDao().delete(category);
+    }
+
+    public void insertListCategory(List<Category> listCategory) {
+        db.categoryDao().insertList(listCategory);
+    }
 }

@@ -16,7 +16,8 @@
     <string name="title_report">Report</string>
     <string name="month">Thang</string>
     <string name="year">Nam</string>
-    
+    <string name="icon_item">Icon item</string>
+
     <string-array name="monthArray">
         <item>Thang 1</item>
         <item>Thang 2</item>
@@ -30,5 +31,41 @@
         <item>Thang 10</item>
         <item>Thang 11</item>
         <item>Thang 12</item>
+    </string-array>
+
+    <string-array name="colorNameArray">
+        <item>colorPrimary</item>
+        <item>colorPrimaryDark</item>
+        <item>colorPrimaryLight</item>
+        <item>colorAccent</item>
+        <item>colorAccentLight</item>
+        <item>colorAccentDark</item>
+        <item>redOrangeMaterial</item>
+        <item>pinkMaterial</item>
+        <item>purpleMaterial</item>
+        <item>purpleBlueMaterial</item>
+        <item>darkBlueMaterial</item>
+        <item>blueMaterial</item>
+        <item>lightBlueMaterial</item>
+        <item>lighterBlueMaterial</item>
+        <item>greenBlueMaterial</item>
+        <item>greenMaterial</item>
+        <item>yellowGreenMaterial</item>
+        <item>lightYellowMaterial</item>
+        <item>yellowMaterial</item>
+        <item>yellowOrangeMaterial</item>
+        <item>orangeMaterial</item>
+        <item>brightOrangeMaterial</item>
+    </string-array>
+
+    <string-array name="iconNameArray">
+        <item>ic_calendar</item>
+        <item>ic_dish</item>
+        <item>ic_pills</item>
+        <item>ic_shirt</item>
+        <item>ic_soccer_ball</item>
+        <item>ic_track</item>
+        <item>ic_wallet</item>
+        <item>ic_weightlifting</item>
     </string-array>
 </resources>
