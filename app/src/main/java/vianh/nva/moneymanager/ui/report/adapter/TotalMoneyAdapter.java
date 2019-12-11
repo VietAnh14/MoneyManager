@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import vianh.nva.moneymanager.R;
-import vianh.nva.moneymanager.Utils;
+import vianh.nva.moneymanager.Utils.Utils;
 import vianh.nva.moneymanager.data.entity.TotalMoneyDisplay;
 
 public class TotalMoneyAdapter extends RecyclerView.Adapter<TotalMoneyAdapter.MyViewHolder> {

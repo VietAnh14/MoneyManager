@@ -47,6 +47,17 @@ public class HomeViewModel extends AndroidViewModel {
         return appRepository.insertMoney(money);
     }
 
+    public Completable updateMoney(Money money) {
+        if (!isValid(money)) {
+            return Completable.error(new Throwable("Invalid argument"));
+        }
+        if (money.getType() == Money.TYPE_SPEND) {
+            float value = money.getMoney() * -1;
+            money.setMoney(value);
+        }
+        return appRepository.updateMoney(money);
+    }
+
     private boolean isValid(Money money) {
         return money.getMoney() > 0;
     }

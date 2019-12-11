@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vianh.nva.moneymanager.R;
-import vianh.nva.moneymanager.Utils;
+import vianh.nva.moneymanager.Utils.Utils;
 import vianh.nva.moneymanager.data.entity.Category;
 import vianh.nva.moneymanager.data.entity.Money;
 import vianh.nva.moneymanager.ui.category.CategoryActivity;
@@ -49,7 +49,6 @@ public class ListCategoryAdapter extends RecyclerView.Adapter<ListCategoryAdapte
         holder.categoryIcon.setColorFilter(ContextCompat.getColor(context, colorId), android.graphics.PorterDuff.Mode.SRC_IN);
         holder.categoryIcon.setImageResource(iconId);
         holder.categoryDescription.setText(desc);
-        int type = listCategory.get(position).getType();
         holder.itemView.setOnClickListener(view -> {
             AppCompatActivity activity = (AppCompatActivity) view.getContext();
             Intent intent = new Intent(activity, CategoryActivity.class);

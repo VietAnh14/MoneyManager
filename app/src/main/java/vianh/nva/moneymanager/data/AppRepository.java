@@ -87,4 +87,8 @@ public class AppRepository {
     public void insertListCategory(List<Category> listCategory) {
         db.categoryDao().insertList(listCategory);
     }
+
+    public Completable updateMoney(Money money) {
+        return db.moneyDao().updateMoney(money);
+    }
 }

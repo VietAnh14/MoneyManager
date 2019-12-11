@@ -9,25 +9,25 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
 import vianh.nva.moneymanager.R;
-import vianh.nva.moneymanager.Utils;
+import vianh.nva.moneymanager.Utils.Utils;
 import vianh.nva.moneymanager.data.entity.Category;
 import vianh.nva.moneymanager.ui.category.ListCategoryActivity;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ItemViewHolder>{
-    private final  int TYPE_SETTING = -1;
+    public static final int TYPE_SETTING = -1;
 
     private List<Category> list;
     private int selectedPosition = 0;
     private Context context;
 
-    public CategoryAdapter(List<Category> data) {
+    public CategoryAdapter(List<Category> data, int selectedPosition) {
+        this.selectedPosition = selectedPosition;
         this.list = data;
     }
 
@@ -99,5 +99,10 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ItemVi
 
     public int getSelectedPosition() {
         return selectedPosition;
+    }
+    public void setSelectedPosition(int selectedPosition) {
+        notifyItemChanged(this.selectedPosition);
+        this.selectedPosition = selectedPosition;
+        notifyItemChanged(selectedPosition);
     }
 }

@@ -1,4 +1,4 @@
-package vianh.nva.moneymanager;
+package vianh.nva.moneymanager.Utils;
 
 import java.lang.reflect.Field;
 

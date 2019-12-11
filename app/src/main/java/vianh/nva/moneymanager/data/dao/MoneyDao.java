@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import java.util.List;
 
@@ -45,4 +46,7 @@ public interface MoneyDao {
             "FROM money INNER JOIN category ON money.categoryId = category.id " +
             "WHERE year = :year AND money.type = 1 GROUP BY money.categoryId")
     Flowable<List<TotalMoneyDisplay>> getTotalMoneyEarnByYear(int year);
+
+    @Update
+    Completable updateMoney(Money money);
 }

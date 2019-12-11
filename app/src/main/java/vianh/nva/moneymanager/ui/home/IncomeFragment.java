@@ -33,6 +33,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import vianh.nva.moneymanager.R;
+import vianh.nva.moneymanager.Utils.AfterTextChangedWatcher;
+import vianh.nva.moneymanager.data.entity.Category;
 import vianh.nva.moneymanager.data.entity.Money;
 import vianh.nva.moneymanager.ui.home.adapter.CategoryAdapter;
 import vianh.nva.moneymanager.ui.view.DatePickerDialogFragment;
@@ -77,7 +79,7 @@ public class IncomeFragment extends Fragment implements DatePickerDialog.OnDateS
         compositeDisposable.clear();
     }
 
-    public void initData(View view){
+    public void initData(View view) {
         mViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
 
         // get view
@@ -92,17 +94,7 @@ public class IncomeFragment extends Fragment implements DatePickerDialog.OnDateS
         dateText.setText(dateString);
 
         btnInsertEarnMoney.setEnabled(false);
-        txbMoney.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
+        txbMoney.addTextChangedListener(new AfterTextChangedWatcher() {
             @Override
             public void afterTextChanged(Editable editable) {
                 if (txbMoney.getText() != null && !txbMoney.getText().toString().equals("0"))
@@ -116,6 +108,9 @@ public class IncomeFragment extends Fragment implements DatePickerDialog.OnDateS
         final CategoryAdapter adapter = new CategoryAdapter();
 
         mViewModel.getListCategoryEarn().observe(this, categories -> {
+            Category category = new Category("ic_chevron_right_black_24dp",
+                    "colorPrimary", "Chinh sua gi do cho no dai ne", CategoryAdapter.TYPE_SETTING);
+            categories.add(category);
             adapter.setList(categories);
             Log.d("Income", "Changed");
         });
@@ -164,7 +159,7 @@ public class IncomeFragment extends Fragment implements DatePickerDialog.OnDateS
     @Override
     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
         c.set(i, i1, i2);
-        String dateString = i2+ "/" + (i1 + 1) + "/" + i;
+        String dateString = i2 + "/" + (i1 + 1) + "/" + i;
         dateText.setText(dateString);
     }
 

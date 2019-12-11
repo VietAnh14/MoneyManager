@@ -33,6 +33,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import vianh.nva.moneymanager.R;
+import vianh.nva.moneymanager.Utils.AfterTextChangedWatcher;
 import vianh.nva.moneymanager.data.entity.Category;
 import vianh.nva.moneymanager.data.entity.Money;
 import vianh.nva.moneymanager.ui.home.adapter.CategoryAdapter;
@@ -87,17 +88,7 @@ public class OutcomeFragment extends Fragment implements DatePickerDialog.OnDate
         dateText.setText(dateString);
 
         btnInsertSpentMoney.setEnabled(false);
-        txbMoney.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
+        txbMoney.addTextChangedListener(new AfterTextChangedWatcher() {
             @Override
             public void afterTextChanged(Editable editable) {
                 if (txbMoney.getText() != null && !txbMoney.getText().toString().equals("0"))
@@ -112,7 +103,7 @@ public class OutcomeFragment extends Fragment implements DatePickerDialog.OnDate
 
         mViewModel.getListCategorySpend().observe(this, categories -> {
             Category category = new Category("ic_chevron_right_black_24dp",
-                    "colorPrimary", "Chinh sua gi do cho no dai ne", -1);
+                    "colorPrimary", "Chinh sua gi do cho no dai ne", CategoryAdapter.TYPE_SETTING);
             categories.add(category);
             adapter.setList(categories);
             Log.d("Outcome", String.valueOf(categories.size()));

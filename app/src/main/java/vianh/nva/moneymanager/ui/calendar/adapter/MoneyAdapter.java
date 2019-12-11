@@ -2,6 +2,8 @@ package vianh.nva.moneymanager.ui.calendar.adapter;
 
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,8 +20,10 @@ import java.util.HashMap;
 import java.util.List;
 
 import vianh.nva.moneymanager.R;
-import vianh.nva.moneymanager.Utils;
+import vianh.nva.moneymanager.Utils.Utils;
 import vianh.nva.moneymanager.data.entity.Category;
+import vianh.nva.moneymanager.data.entity.Money;
+import vianh.nva.moneymanager.ui.money.MoneyDetailActivity;
 
 public class MoneyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     private List<AdapterItem> listItem;
@@ -55,8 +59,6 @@ public class MoneyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
             ((HeaderViewHolder) holder).textDate
                     .setText(simpleDateFormat.format(((MoneyApdaterHeader) item).getCalendar().getTime()));
         } else {
-            holder = (ItemViewHolder) holder;
-            item = (MoneyAdapterItem) item;
             ((ItemViewHolder) holder).money.setText(String.valueOf(((MoneyAdapterItem) item).getMoney().getMoney()));
 
             // case category load successful
@@ -69,7 +71,11 @@ public class MoneyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
                 ((ItemViewHolder) holder).categoryIcon.setImageResource(iconId);
                 ((ItemViewHolder) holder).categoryIcon.setColorFilter(ContextCompat.getColor(context, colorId), android.graphics.PorterDuff.Mode.SRC_IN);
                 ((ItemViewHolder) holder).categoryName.setText(category.getDescription());
-
+                holder.itemView.setOnClickListener(view -> {
+                    Intent intent = new Intent(context, MoneyDetailActivity.class);
+                    intent.putExtra("Money", ((MoneyAdapterItem)listItem.get(position)).getMoney());
+                    context.startActivity(intent);
+                });
             }
         }
     }

@@ -106,7 +106,7 @@ public class CategoryActivity extends AppCompatActivity {
                 compositeDisposable.add(
                         viewModel.updateCategory(category)
                                 .subscribeOn(Schedulers.io())
-                                .subscribeOn(AndroidSchedulers.mainThread())
+                                .observeOn(AndroidSchedulers.mainThread())
                                 .subscribe(
                                         () -> {
                                             Toast.makeText(this, "Updated", Toast.LENGTH_SHORT).show();
