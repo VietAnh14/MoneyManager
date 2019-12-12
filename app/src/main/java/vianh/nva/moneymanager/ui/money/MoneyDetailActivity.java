@@ -36,7 +36,7 @@ import vianh.nva.moneymanager.ui.view.DatePickerDialogFragment;
 public class MoneyDetailActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
     private HomeViewModel mViewModel;
     private TextView dateText;
-    private Button btnInsertSpentMoney;
+    private Button btnSave;
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
     private EditText txbMoney;
     public final String TAG = this.getClass().getSimpleName();
@@ -60,14 +60,18 @@ public class MoneyDetailActivity extends AppCompatActivity implements DatePicker
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(v -> finish());
 
+        c.set(money.getYear(), money.getMonth() - 1, money.getDay());
+
         // get view
         TextView textview = findViewById(R.id.textView3);
         RecyclerView recyclerView = findViewById(R.id.listCategory);
         dateText = findViewById(R.id.dateEditText);
         txbMoney = findViewById(R.id.moneyEarnEditText);
         ImageButton btn = findViewById(R.id.imageButtonDateDialog);
-        btnInsertSpentMoney = findViewById(R.id.btnInsertSpentMoney);
+        btnSave = findViewById(R.id.btnSave);
         noteText = findViewById(R.id.noteEditText);
+
+        noteText.setText(money.getNote());
 
         // bind adapter to recyclerview
         final CategoryAdapter adapter = new CategoryAdapter();
@@ -114,14 +118,13 @@ public class MoneyDetailActivity extends AppCompatActivity implements DatePicker
         String dateString = money.getDay() + "/" + money.getMonth() + "/" + money.getYear();
         dateText.setText(dateString);
 
-        btnInsertSpentMoney.setEnabled(false);
         txbMoney.addTextChangedListener(new AfterTextChangedWatcher() {
             @Override
             public void afterTextChanged(Editable editable) {
                 if (editable != null && !editable.toString().equals("0"))
-                    btnInsertSpentMoney.setEnabled(true);
+                    btnSave.setEnabled(true);
                 else
-                    btnInsertSpentMoney.setEnabled(false);
+                    btnSave.setEnabled(false);
             }
         });
 
@@ -137,7 +140,7 @@ public class MoneyDetailActivity extends AppCompatActivity implements DatePicker
 
         // set onclick
         // TODO: refactor this to use data binding
-        btnInsertSpentMoney.setOnClickListener(
+        btnSave.setOnClickListener(
                 v -> {
                     int day = c.get(Calendar.DAY_OF_MONTH);
                     int year = c.get(Calendar.YEAR);

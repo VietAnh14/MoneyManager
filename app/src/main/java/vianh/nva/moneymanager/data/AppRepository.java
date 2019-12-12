@@ -91,4 +91,8 @@ public class AppRepository {
     public Completable updateMoney(Money money) {
         return db.moneyDao().updateMoney(money);
     }
+
+    public Completable deleteMoney(Money money) {
+        return db.moneyDao().deleteMoney(money);
+    }
 }

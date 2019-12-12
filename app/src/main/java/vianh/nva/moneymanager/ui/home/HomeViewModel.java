@@ -58,6 +58,10 @@ public class HomeViewModel extends AndroidViewModel {
         return appRepository.updateMoney(money);
     }
 
+    public Completable deleteMoney(Money money) {
+        return appRepository.deleteMoney(money);
+    }
+
     private boolean isValid(Money money) {
         return money.getMoney() > 0;
     }

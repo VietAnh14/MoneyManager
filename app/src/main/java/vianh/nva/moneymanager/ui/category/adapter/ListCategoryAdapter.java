@@ -49,7 +49,7 @@ public class ListCategoryAdapter extends RecyclerView.Adapter<ListCategoryAdapte
         holder.categoryIcon.setColorFilter(ContextCompat.getColor(context, colorId), android.graphics.PorterDuff.Mode.SRC_IN);
         holder.categoryIcon.setImageResource(iconId);
         holder.categoryDescription.setText(desc);
-        holder.itemView.setOnClickListener(view -> {
+        holder.fontView.setOnClickListener(view -> {
             AppCompatActivity activity = (AppCompatActivity) view.getContext();
             Intent intent = new Intent(activity, CategoryActivity.class);
             intent.putExtra("category", listCategory.get(position));
@@ -78,12 +78,14 @@ public class ListCategoryAdapter extends RecyclerView.Adapter<ListCategoryAdapte
 
     static class CategoryViewHolder extends RecyclerView.ViewHolder {
         private ImageView categoryIcon;
+        private View fontView;
         private TextView categoryDescription;
 
         public CategoryViewHolder(@NonNull View itemView) {
             super(itemView);
             categoryIcon = itemView.findViewById(R.id.iconCategory);
             categoryDescription = itemView.findViewById(R.id.categoryName);
+            fontView = itemView.findViewById(R.id.itemBg);
             TextView moneyTextView = itemView.findViewById(R.id.moneyText);
             moneyTextView.setVisibility(View.INVISIBLE);
         }

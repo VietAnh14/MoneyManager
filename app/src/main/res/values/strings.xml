@@ -67,5 +67,8 @@
         <item>ic_track</item>
         <item>ic_wallet</item>
         <item>ic_weightlifting</item>
+        <item>ic_book</item>
+        <item>ic_console</item>
+        <item>ic_delete</item>
     </string-array>
 </resources>

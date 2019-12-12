@@ -24,6 +24,7 @@
     <color name="yellowOrangeMaterial">#FFC107</color>
     <color name="orangeMaterial">#FF9800</color>
     <color name="brightOrangeMaterial">#FF5722</color>
+    <color name="deleteBg">#fa315b</color>
 <!--    <array name="colorList">-->
 <!--        <item>@color/colorPrimary</item>-->
 <!--        <item>@color/colorAccent</item>-->

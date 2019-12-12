@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -71,7 +72,7 @@ public class MoneyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
                 ((ItemViewHolder) holder).categoryIcon.setImageResource(iconId);
                 ((ItemViewHolder) holder).categoryIcon.setColorFilter(ContextCompat.getColor(context, colorId), android.graphics.PorterDuff.Mode.SRC_IN);
                 ((ItemViewHolder) holder).categoryName.setText(category.getDescription());
-                holder.itemView.setOnClickListener(view -> {
+                ((ItemViewHolder)holder).itemBg.setOnClickListener(view -> {
                     Intent intent = new Intent(context, MoneyDetailActivity.class);
                     intent.putExtra("Money", ((MoneyAdapterItem)listItem.get(position)).getMoney());
                     context.startActivity(intent);
@@ -89,7 +90,8 @@ public class MoneyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     }
 
     public void setListItem(List<AdapterItem> listItem) {
-        this.listItem = listItem;
+        this.listItem = new ArrayList<>();
+        this.listItem.addAll(listItem);
         notifyDataSetChanged();
     }
 
@@ -98,7 +100,17 @@ public class MoneyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         notifyDataSetChanged();
     }
 
-    private static class HeaderViewHolder extends RecyclerView.ViewHolder{
+    public void removeItem(int position) {
+        listItem.remove(position);
+        notifyItemRemoved(position);
+    }
+
+    public void restoreItem(int position, AdapterItem item) {
+        listItem.add(position, item);
+        notifyItemInserted(position);
+    }
+
+    public class HeaderViewHolder extends RecyclerView.ViewHolder{
         private TextView textDate;
         public HeaderViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -106,16 +118,19 @@ public class MoneyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         }
     }
 
-    private static class ItemViewHolder extends RecyclerView.ViewHolder{
+    public class ItemViewHolder extends RecyclerView.ViewHolder{
         private ImageView categoryIcon;
         private TextView categoryName;
         private TextView money;
+        public View itemBg, deleteBackGround;
 
         public ItemViewHolder(@NonNull View itemView) {
             super(itemView);
             categoryIcon = itemView.findViewById(R.id.iconCategory);
             categoryName = itemView.findViewById(R.id.categoryName);
             money = itemView.findViewById(R.id.moneyText);
+            itemBg = itemView.findViewById(R.id.itemBg);
+            deleteBackGround = itemView.findViewById(R.id.bgDelete);
         }
     }
 }
