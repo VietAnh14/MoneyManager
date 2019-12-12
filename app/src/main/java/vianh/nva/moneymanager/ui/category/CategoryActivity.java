@@ -22,6 +22,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import vianh.nva.moneymanager.R;
+import vianh.nva.moneymanager.Utils.AfterTextChangedWatcher;
 import vianh.nva.moneymanager.data.entity.Category;
 import vianh.nva.moneymanager.ui.category.adapter.ColorAdapter;
 import vianh.nva.moneymanager.ui.category.adapter.IconAdapter;
@@ -61,6 +62,8 @@ public class CategoryActivity extends AppCompatActivity {
     public void innitView () {
         btnSave = findViewById(R.id.btnSave);
         txtCategoryName = findViewById(R.id.categoryName);
+
+
         ArrayList<String> listColorName = new ArrayList<>();
         Collections.addAll(listColorName, getResources().getStringArray(R.array.colorNameArray));
         colorRecyclerView = findViewById(R.id.recyclerViewColor);
@@ -74,18 +77,9 @@ public class CategoryActivity extends AppCompatActivity {
         IconAdapter iconAdapter = new IconAdapter(listIconName);
         colorRecyclerView.setLayoutManager(new GridLayoutManager(this, 3));
         colorRecyclerView.setAdapter(iconAdapter);
-        txtCategoryName.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
+        txtCategoryName.addTextChangedListener(new AfterTextChangedWatcher() {
+        @Override
             public void afterTextChanged(Editable editable) {
                 if(!editable.toString().equals("")) {
                     btnSave.setEnabled(true);
@@ -94,6 +88,29 @@ public class CategoryActivity extends AppCompatActivity {
                 }
             }
         });
+
+        if (mode == ListCategoryAdapter.MODE_UPDATE) {
+            txtCategoryName.setText(category.getDescription());
+            int colorPos = 0;
+            int iconPos = 0;
+            for (String name : listColorName) {
+                if (name.equals(category.getColorName())) {
+                    break;
+                }
+                colorPos++;
+            }
+
+            for (String name : listIconName) {
+                if (name.equals(category.getIconName())) {
+                    break;
+                }
+                iconPos++;
+            }
+            Log.d(TAG, "Color pos : " + colorPos);
+            colorAdapter.setSelectedPos(colorPos);
+            iconAdapter.setSelectedPosition(iconPos);
+
+        }
 
         btnSave.setOnClickListener( view -> {
             String categoryName = txtCategoryName.getText().toString();

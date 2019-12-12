@@ -12,7 +12,7 @@
             android:layout_toStartOf="@id/iconDelete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Xoa"
+            android:text="@string/xoa"
             android:layout_centerVertical="true"
             android:textSize="20sp"
             android:textColor="@android:color/white" />
@@ -55,7 +55,6 @@
             android:textStyle="bold"
             android:textSize="16sp"
             android:layout_centerVertical="true"
-            android:text="an uong chi do"
             android:ellipsize="end"
             android:maxLines="1"
             />
@@ -68,8 +67,7 @@
             android:textStyle="bold"
             android:textSize="16sp"
             android:layout_centerVertical="true"
-            android:layout_toStartOf="@id/iconArrow"
-            android:text="500.000" />
+            android:layout_toStartOf="@id/iconArrow" />
         <ImageView
             android:id="@+id/iconArrow"
             android:layout_width="wrap_content"

@@ -24,7 +24,6 @@
         android:textStyle="bold"
         android:textSize="16sp"
         android:layout_centerVertical="true"
-        android:text="an uong chi do"
         android:ellipsize="end"
         android:maxLines="1"
         />
@@ -37,6 +36,5 @@
         android:textStyle="bold"
         android:textSize="16sp"
         android:layout_centerVertical="true"
-        android:layout_alignParentEnd="true"
-        android:text="500.000" />
+        android:layout_alignParentEnd="true"/>
 </RelativeLayout>

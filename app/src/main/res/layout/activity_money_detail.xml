@@ -42,6 +42,7 @@
 
     <TextView
         android:id="@+id/textView"
+        android:textStyle="bold"
         style="@style/text_label_18sp"
         android:text="@string/ngay"
         app:layout_constraintBaseline_toBaselineOf="@+id/dateEditText"
@@ -59,6 +60,7 @@
         android:id="@+id/textView2"
         style="@style/text_label_18sp"
         android:text="@string/ghi_chu"
+        android:textStyle="bold"
         app:layout_constraintBaseline_toBaselineOf="@+id/noteEditText"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -87,7 +89,8 @@
     <TextView
         android:id="@+id/textView3"
         style="@style/text_label_18sp"
-        android:text="Tien chi"
+        android:text="@string/tien_chi"
+        android:textStyle="bold"
         app:layout_constraintBaseline_toBaselineOf="@+id/moneyEarnEditText"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -96,7 +99,7 @@
         style="@style/edit_text"
         android:inputType="numberDecimal"
         android:textStyle="bold"
-        android:text="0"
+        android:text="@string/_0"
         android:background="@color/colorPrimaryLight"
         app:layout_constraintTop_toBottomOf="@id/view1"
         app:layout_constraintEnd_toStartOf="@+id/imageButtonDateDialog"
@@ -116,11 +119,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="18sp"
+        android:textStyle="bold"
         android:textColor="@color/black"
         android:layout_marginStart="@dimen/app_margin"
         android:layout_marginEnd="@dimen/app_margin"
         android:layout_marginTop="30dp"
-        android:text="Danh muc"
+        android:text="@string/danh_muc"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view2" />
 
@@ -153,8 +157,10 @@
         android:layout_marginStart="@dimen/app_margin"
         android:layout_marginEnd="@dimen/app_margin"
         android:layout_marginTop="30dp"
-        android:background="@color/colorPrimary"
-        android:text="Luu"
+        android:background="@drawable/btn_colorprimary_bg"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:text="@string/luu"
         android:textAllCaps="false"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"

@@ -64,7 +64,7 @@ public abstract class AppDatabase extends RoomDatabase {
 
             categoryDao.deleteAll();
             ArrayList<Category> listCategory = new ArrayList<>();
-            Category category = new Category("ic_calendar",
+            Category category = new Category("ic_dish",
                     "colorPrimary", "An uong", Money.TYPE_SPEND);
             Category party = new Category("ic_calendar",
                     "pinkMaterial", "Party", Money.TYPE_SPEND);

@@ -58,4 +58,10 @@ public class IconAdapter extends RecyclerView.Adapter<IconAdapter.IconViewHolder
     public String getSelectedIconName() {
         return listIconName.get(selectedPosition);
     }
+
+    public void setSelectedPosition(int selectedPosition) {
+        notifyItemChanged(this.selectedPosition);
+        this.selectedPosition = selectedPosition;
+        notifyItemChanged(selectedPosition);
+    }
 }

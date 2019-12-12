@@ -17,6 +17,19 @@
     <string name="month">Thang</string>
     <string name="year">Nam</string>
     <string name="icon_item">Icon item</string>
+    <string name="tien_thu">Tiền thu</string>
+    <string name="_0">0</string>
+    <string name="danh_muc">Danh mục</string>
+    <string name="nhap_khoan_thu">Nhập khoản thu</string>
+    <string name="ten_danh_muc">Tên danh mục:</string>
+    <string name="tien_chi">Tiền chi</string>
+    <string name="thu_chi">Thu chi</string>
+    <string name="luu">Lưu</string>
+    <string name="nhap_khoan_chi">Nhập khoản chi</string>
+    <string name="xoa">Xóa</string>
+    <string name="nhap_ten_danh_muc">Nhập tên danh mục</string>
+    <string name="bieu_tuong">Biểu tượng</string>
+    <string name="mau_sac">Màu sắc</string>
 
     <string-array name="monthArray">
         <item>Thang 1</item>

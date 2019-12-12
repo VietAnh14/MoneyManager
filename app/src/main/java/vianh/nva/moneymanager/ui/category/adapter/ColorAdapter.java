@@ -75,4 +75,10 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ColorViewHol
     public String getSelectedColorName() {
         return listColorName.get(selectedPos);
     }
+
+    public void setSelectedPos (int selectedPos) {
+        notifyItemChanged(this.selectedPos);
+        this.selectedPos = selectedPos;
+        notifyItemChanged(selectedPos);
+    }
 }
