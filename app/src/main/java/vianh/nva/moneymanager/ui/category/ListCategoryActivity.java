@@ -1,6 +1,5 @@
 package vianh.nva.moneymanager.ui.category;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
@@ -12,9 +11,10 @@ import com.google.android.material.tabs.TabLayout;
 import java.util.Objects;
 
 import vianh.nva.moneymanager.R;
+import vianh.nva.moneymanager.RequireLoginActivity;
 import vianh.nva.moneymanager.ui.category.adapter.CategoryPagerAdapter;
 
-public class ListCategoryActivity extends AppCompatActivity {
+public class ListCategoryActivity extends RequireLoginActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

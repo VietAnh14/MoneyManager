@@ -21,13 +21,14 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import vianh.nva.moneymanager.R;
+import vianh.nva.moneymanager.RequireLoginActivity;
 import vianh.nva.moneymanager.Utils.AfterTextChangedWatcher;
 import vianh.nva.moneymanager.data.entity.Category;
 import vianh.nva.moneymanager.ui.category.adapter.ColorAdapter;
 import vianh.nva.moneymanager.ui.category.adapter.IconAdapter;
 import vianh.nva.moneymanager.ui.category.adapter.ListCategoryAdapter;
 
-public class CategoryActivity extends AppCompatActivity {
+public class CategoryActivity extends RequireLoginActivity {
     private final String TAG = this.getClass().getSimpleName();
     private RecyclerView colorRecyclerView;
     private EditText txtCategoryName;

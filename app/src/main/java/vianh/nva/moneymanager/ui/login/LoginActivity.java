@@ -55,6 +55,18 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener( v -> login());
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        overridePendingTransition(R.anim.slide_in_down, R.anim.slide_out_down);
+    }
+
     private void login() {
         if (password.equals(txbPassword.getText().toString())) {
             RequireLoginActivity.requireLogin = false;

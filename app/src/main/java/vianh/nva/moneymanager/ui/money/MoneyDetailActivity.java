@@ -1,6 +1,5 @@
 package vianh.nva.moneymanager.ui.money;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -25,6 +24,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import vianh.nva.moneymanager.R;
+import vianh.nva.moneymanager.RequireLoginActivity;
 import vianh.nva.moneymanager.Utils.AfterTextChangedWatcher;
 import vianh.nva.moneymanager.data.entity.Category;
 import vianh.nva.moneymanager.data.entity.Money;
@@ -32,7 +32,7 @@ import vianh.nva.moneymanager.ui.home.HomeViewModel;
 import vianh.nva.moneymanager.ui.home.adapter.CategoryAdapter;
 import vianh.nva.moneymanager.ui.view.DatePickerDialogFragment;
 
-public class MoneyDetailActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
+public class MoneyDetailActivity extends RequireLoginActivity implements DatePickerDialog.OnDateSetListener {
     private HomeViewModel mViewModel;
     private TextView dateText;
     private Button btnSave;

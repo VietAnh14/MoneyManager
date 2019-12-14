@@ -31,6 +31,11 @@
     <string name="bieu_tuong">Biểu tượng</string>
     <string name="mau_sac">Màu sắc</string>
     <string name="khac">Khác</string>
+    <string name="them_vao_cho_do_trong">Thêm vào cho đỡ trống</string>
+    <string name="khoa_mat_ma">Khóa mật mã</string>
+    <string name="nhap_mat_khau">Nhập mật khẩu</string>
+    <string name="xac_nhan_mat_khau">Xác nhận mật khẩu</string>
+    <string name="warning_text">Cố gắng nhớ mật khẩu vì quên mật khẩu là chỉ có nước gỡ app cài lại nhe :)</string>
 
     <string-array name="monthArray">
         <item>Thang 1</item>

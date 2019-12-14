@@ -23,7 +23,7 @@
             android:textSize="18sp"
             android:layout_marginStart="@dimen/app_margin"
             android:layout_gravity="center_vertical"
-            android:text="Khoa mat ma" />
+            android:text="@string/khoa_mat_ma" />
         <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/switchPass"
             android:layout_width="wrap_content"
@@ -41,7 +41,7 @@
             android:textSize="18sp"
             android:layout_marginStart="@dimen/app_margin"
             android:layout_gravity="center_vertical"
-            android:text="Khoa mat ma" />
+            android:text="@string/them_vao_cho_do_trong" />
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
