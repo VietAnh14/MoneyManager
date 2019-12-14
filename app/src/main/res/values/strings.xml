@@ -30,6 +30,7 @@
     <string name="nhap_ten_danh_muc">Nhập tên danh mục</string>
     <string name="bieu_tuong">Biểu tượng</string>
     <string name="mau_sac">Màu sắc</string>
+    <string name="khac">Khác</string>
 
     <string-array name="monthArray">
         <item>Thang 1</item>

@@ -22,4 +22,9 @@
         android:name="vianh.nva.moneymanager.ui.report.ReportFragment"
         android:label="@string/title_report"
         tools:layout="@layout/fragment_report" />
+    <fragment
+        android:id="@+id/navigation_orders"
+        android:name="vianh.nva.moneymanager.ui.orders.OderFragment"
+        android:label="@string/khac"
+        tools:layout="@layout/fragment_oder" />
 </navigation>

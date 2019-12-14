@@ -4,6 +4,7 @@
     package="vianh.nva.moneymanager">
 
     <application
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -11,33 +12,23 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.money.MoneyDetailActivity"
-            android:label="Chinh sua khoan thu chi"
-            android:parentActivityName=".MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+        <activity android:name=".ui.orders.CreatePasswordActivity" />
+        <activity
+            android:name=".ui.login.LoginActivity"
+            android:windowSoftInputMode="stateAlwaysVisible">
         </activity>
+        <activity
+            android:name=".ui.money.MoneyDetailActivity"
+            android:label="Chinh sua khoan thu chi" />
         <activity
             android:name=".ui.category.CategoryActivity"
-            android:label="Category"
-            android:parentActivityName=".ui.category.ListCategoryActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.category.ListCategoryActivity" />
-        </activity>
+            android:label="Category" />
         <activity
             android:name=".ui.category.ListCategoryActivity"
-            android:label="List Category"
-            android:parentActivityName=".MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
-        </activity>
+            android:label="List Category" />
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name"
-            android:windowSoftInputMode="adjustPan">
+            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

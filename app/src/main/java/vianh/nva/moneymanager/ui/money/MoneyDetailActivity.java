@@ -17,7 +17,6 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 import java.util.Objects;
@@ -190,5 +189,11 @@ public class MoneyDetailActivity extends AppCompatActivity implements DatePicker
         c.set(i, i1, i2);
         String dateString = i2+ "/" + (i1 + 1)  + "/" + i;
         dateText.setText(dateString);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 }

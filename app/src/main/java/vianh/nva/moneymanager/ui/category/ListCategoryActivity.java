@@ -27,6 +27,11 @@ public class ListCategoryActivity extends AppCompatActivity {
         initView();
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
+    }
 
     private void initView() {
         TabLayout tabLayout = findViewById(R.id.tabLayout);
