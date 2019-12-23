@@ -17,8 +17,8 @@ import vianh.nva.moneymanager.data.entity.TotalMoneyDisplay;
 public class MonthReportViewModel extends AndroidViewModel {
     private AppRepository appRepository;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
-    private float totalEarn = 0f;
-    private float totalSpend = 0f;
+    private long totalEarn = 0L;
+    private long totalSpend = 0L;
 
     public MonthReportViewModel(@NonNull Application application) {
         super(application);
@@ -28,7 +28,7 @@ public class MonthReportViewModel extends AndroidViewModel {
     public Flowable<List<TotalMoneyDisplay>> getTotalMoneyEarn(int month, int year) {
         return appRepository.getTotalMoneyEarnByMonthYear(month, year).map(
                 totalMoneyDisplays -> {
-                    float totalMoney = 0f;
+                    long totalMoney = 0L;
                     for (TotalMoneyDisplay money : totalMoneyDisplays) {
                         totalMoney += money.getTotalMoney();
                     }
@@ -41,7 +41,7 @@ public class MonthReportViewModel extends AndroidViewModel {
     public Flowable<List<TotalMoneyDisplay>> getTotalMoneySpend(int month, int year) {
         return appRepository.getTotalMoneySpendByMonthYear(month, year).map(
                 totalMoneyDisplays -> {
-                    float totalMoney = 0f;
+                    long totalMoney = 0L;
                     for (TotalMoneyDisplay money : totalMoneyDisplays) {
                         money.setTotalMoney(-1 * money.getTotalMoney());
                         totalMoney += money.getTotalMoney();
@@ -56,11 +56,11 @@ public class MonthReportViewModel extends AndroidViewModel {
         return compositeDisposable;
     }
 
-    public float getTotalEarn() {
+    public long getTotalEarn() {
         return totalEarn;
     }
 
-    public float getTotalSpend() {
+    public long getTotalSpend() {
         return totalSpend;
     }
 }

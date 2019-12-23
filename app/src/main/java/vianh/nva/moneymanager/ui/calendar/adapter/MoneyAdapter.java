@@ -60,7 +60,7 @@ public class MoneyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
             ((HeaderViewHolder) holder).textDate
                     .setText(simpleDateFormat.format(((MoneyApdaterHeader) item).getCalendar().getTime()));
         } else {
-            ((ItemViewHolder) holder).money.setText(String.valueOf(((MoneyAdapterItem) item).getMoney().getMoney()));
+            ((ItemViewHolder) holder).money.setText(Utils.currencyFormat(((MoneyAdapterItem) item).getMoney().getMoney()));
 
             // case category load successful
             if (mapCategory != null) {

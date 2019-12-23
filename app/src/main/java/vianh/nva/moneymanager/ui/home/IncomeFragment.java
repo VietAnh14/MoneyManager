@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,7 +26,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Calendar;
-import java.util.Date;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -130,9 +128,9 @@ public class IncomeFragment extends Fragment implements DatePickerDialog.OnDateS
                     int year = c.get(Calendar.YEAR);
                     int day = c.get(Calendar.DAY_OF_MONTH);
                     String note = noteText.getText().toString();
-                    Float spent = 0f;
+                    long spent = 0L;
                     if (txbMoney.getText() != null) {
-                        spent = Float.valueOf(txbMoney.getText().toString());
+                        spent = Long.valueOf(txbMoney.getText().toString());
                     }
                     int categoryId = adapter.getSelectedId();
                     Money money = new Money(note, spent, categoryId, day, month, year, Money.TYPE_EARN);

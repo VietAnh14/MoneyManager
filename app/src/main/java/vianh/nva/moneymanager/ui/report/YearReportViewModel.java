@@ -15,8 +15,8 @@ import vianh.nva.moneymanager.data.entity.TotalMoneyDisplay;
 
 public class YearReportViewModel extends AndroidViewModel {
     private AppRepository appRepository;
-    private float totalEarn = 0f;
-    private float totalSpend = 0f;
+    private long totalEarn = 0L;
+    private long totalSpend = 0L;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
     public YearReportViewModel(@NonNull Application application) {
         super(application);
@@ -45,11 +45,11 @@ public class YearReportViewModel extends AndroidViewModel {
         );
     }
 
-    public float getTotalEarn() {
+    public long getTotalEarn() {
         return totalEarn;
     }
 
-    public float getTotalSpend() {
+    public long getTotalSpend() {
         return totalSpend;
     }
 

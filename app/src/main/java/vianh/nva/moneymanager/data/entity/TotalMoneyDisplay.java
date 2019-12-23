@@ -5,7 +5,7 @@ import androidx.room.Ignore;
 import java.io.Serializable;
 
 public class TotalMoneyDisplay implements Serializable {
-    private float totalMoney;
+    private long totalMoney;
     private int type;
     private int day;
     private int month;
@@ -18,7 +18,7 @@ public class TotalMoneyDisplay implements Serializable {
     }
 
     @Ignore
-    public TotalMoneyDisplay(float totalMoney, int type, int day, int month, int year, String iconName, String colorName, String description) {
+    public TotalMoneyDisplay(long totalMoney, int type, int day, int month, int year, String iconName, String colorName, String description) {
         this.totalMoney = totalMoney;
         this.type = type;
         this.day = day;
@@ -29,11 +29,11 @@ public class TotalMoneyDisplay implements Serializable {
         this.description = description;
     }
 
-    public float getTotalMoney() {
+    public long getTotalMoney() {
         return totalMoney;
     }
 
-    public void setTotalMoney(float totalMoney) {
+    public void setTotalMoney(long totalMoney) {
         this.totalMoney = totalMoney;
     }
 

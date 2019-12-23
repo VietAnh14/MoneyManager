@@ -130,9 +130,9 @@ public class OutcomeFragment extends Fragment implements DatePickerDialog.OnDate
                     int year = c.get(Calendar.YEAR);
                     int month = c.get(Calendar.MONTH) + 1;
                     String note = noteText.getText().toString();
-                    Float spent = 0f;
+                    long spent = 0L;
                     if (txbMoney.getText() != null) {
-                        spent = Float.valueOf(txbMoney.getText().toString());
+                        spent = Long.valueOf(txbMoney.getText().toString());
                     }
                     int categoryId = adapter.getSelectedId();
                     Money money = new Money(note, spent, categoryId, day, month, year, Money.TYPE_SPEND);

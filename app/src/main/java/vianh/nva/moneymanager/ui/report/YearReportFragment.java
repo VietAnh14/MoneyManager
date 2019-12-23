@@ -133,7 +133,7 @@ public class YearReportFragment extends Fragment {
     private void setupChart(List<TotalMoneyDisplay> listMoney) {
         List<PieEntry> entries = new ArrayList<>();
         ArrayList<Integer> colors = new ArrayList<>();
-        float total = 0f;
+        long total = 0L;
         if (listMoney.size() > 0 && listMoney.get(0).getType() == Money.TYPE_SPEND) {
             total = viewModel.getTotalSpend();
         } else {
@@ -142,7 +142,7 @@ public class YearReportFragment extends Fragment {
 
         for (TotalMoneyDisplay money : listMoney) {
             colors.add(getResources().getColor(Utils.getResId(money.getColorName(), R.color.class)));
-            float percent = Math.round((money.getTotalMoney() / total) * 10000) / 100;
+            float percent = Math.round((float)((float)money.getTotalMoney() / total) * 10000) / 100;
             entries.add(new PieEntry(percent, money.getDescription()));
             Log.d(TAG, "percent " + percent);
             Log.d(TAG, money.getColorName());

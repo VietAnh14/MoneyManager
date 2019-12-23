@@ -41,7 +41,7 @@ public class HomeViewModel extends AndroidViewModel {
             return Completable.error(new Throwable("Invalid argument"));
         }
         if (money.getType() == Money.TYPE_SPEND) {
-            float value = money.getMoney() * -1;
+            long value = money.getMoney() * -1;
             money.setMoney(value);
         }
         return appRepository.insertMoney(money);
@@ -52,7 +52,7 @@ public class HomeViewModel extends AndroidViewModel {
             return Completable.error(new Throwable("Invalid argument"));
         }
         if (money.getType() == Money.TYPE_SPEND) {
-            float value = money.getMoney() * -1;
+            long value = money.getMoney() * -1;
             money.setMoney(value);
         }
         return appRepository.updateMoney(money);

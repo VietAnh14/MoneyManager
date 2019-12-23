@@ -140,7 +140,7 @@ public class MonthReportFragment extends Fragment implements AdapterView.OnItemS
     private void setupChart(List<TotalMoneyDisplay> listMoney) {
         List<PieEntry> entries = new ArrayList<>();
         ArrayList<Integer> colors = new ArrayList<>();
-        float total = 0f;
+        long total = 0L;
         if (listMoney.size() > 0 && listMoney.get(0).getType() == Money.TYPE_SPEND) {
             total = viewModel.getTotalSpend();
         } else {
@@ -149,7 +149,7 @@ public class MonthReportFragment extends Fragment implements AdapterView.OnItemS
 
         for (TotalMoneyDisplay money : listMoney) {
             colors.add(getResources().getColor(Utils.getResId(money.getColorName(), R.color.class)));
-            float percent = Math.round((money.getTotalMoney() / total) * 10000) / 100;
+            float percent = Math.round(((float)money.getTotalMoney() / total) * 10000) / 100;
             entries.add(new PieEntry(percent, money.getDescription()));
             Log.d(TAG, "percent " + percent);
             Log.d(TAG, money.getColorName());
@@ -233,8 +233,8 @@ public class MonthReportFragment extends Fragment implements AdapterView.OnItemS
         } else {
             adapter.setTotalMoneyDisplays(listEarn);
         }
-        binding.earnMoneyText.setText(String.valueOf(viewModel.getTotalEarn()));
-        binding.spendMoneyText.setText(String.valueOf(-1 * viewModel.getTotalSpend()));
-        binding.totalMoneyText.setText(String.valueOf(viewModel.getTotalEarn() - viewModel.getTotalSpend()));
+        binding.earnMoneyText.setText(Utils.currencyFormat(viewModel.getTotalEarn()));
+        binding.spendMoneyText.setText(Utils.currencyFormat(-1 * viewModel.getTotalSpend()));
+        binding.totalMoneyText.setText(Utils.currencyFormat(viewModel.getTotalEarn() - viewModel.getTotalSpend()));
     }
 }

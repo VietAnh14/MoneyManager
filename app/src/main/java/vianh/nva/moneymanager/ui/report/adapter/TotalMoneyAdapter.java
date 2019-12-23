@@ -41,11 +41,11 @@ public class TotalMoneyAdapter extends RecyclerView.Adapter<TotalMoneyAdapter.My
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         TotalMoneyDisplay money = totalMoneyDisplays.get(position);
-        int corlor = Utils.getResId(money.getColorName(), R.color.class);
+        int color = Utils.getResId(money.getColorName(), R.color.class);
         int icon = Utils.getResId(money.getIconName(), R.drawable.class);
         holder.categoryIcon.setImageResource(icon);
-        holder.categoryIcon.setColorFilter(ContextCompat.getColor(context, corlor), android.graphics.PorterDuff.Mode.SRC_IN);
-        holder.totalMoney.setText(String.valueOf(money.getTotalMoney()));
+        holder.categoryIcon.setColorFilter(ContextCompat.getColor(context, color), android.graphics.PorterDuff.Mode.SRC_IN);
+        holder.totalMoney.setText(Utils.currencyFormat(money.getTotalMoney()));
         holder.description.setText(money.getDescription());
     }
 

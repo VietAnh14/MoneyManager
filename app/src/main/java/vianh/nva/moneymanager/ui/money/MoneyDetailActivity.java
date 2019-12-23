@@ -26,6 +26,7 @@ import io.reactivex.schedulers.Schedulers;
 import vianh.nva.moneymanager.R;
 import vianh.nva.moneymanager.RequireLoginActivity;
 import vianh.nva.moneymanager.Utils.AfterTextChangedWatcher;
+import vianh.nva.moneymanager.Utils.Utils;
 import vianh.nva.moneymanager.data.entity.Category;
 import vianh.nva.moneymanager.data.entity.Money;
 import vianh.nva.moneymanager.ui.home.HomeViewModel;
@@ -76,7 +77,7 @@ public class MoneyDetailActivity extends RequireLoginActivity implements DatePic
         final CategoryAdapter adapter = new CategoryAdapter();
         if (money.getType() == Money.TYPE_SPEND) {
             textview.setText("Tien chi");
-            String textMoney = String.format(Locale.getDefault(), "%f", -1 * money.getMoney());
+            String textMoney = Utils.currencyFormat(-1 * money.getMoney());
             txbMoney.setText(textMoney);
 
             mViewModel.getListCategorySpend().observe(this, categories -> {
@@ -94,7 +95,7 @@ public class MoneyDetailActivity extends RequireLoginActivity implements DatePic
                 adapter.setSelectedPosition(selectedPosition);
             });
         } else {
-            String textMoney = String.format(Locale.getDefault(), "%f", money.getMoney());
+            String textMoney = String.valueOf(money.getMoney());
             txbMoney.setText(textMoney);
             textview.setText("Tien thu");
 
@@ -145,9 +146,9 @@ public class MoneyDetailActivity extends RequireLoginActivity implements DatePic
                     int year = c.get(Calendar.YEAR);
                     int month = c.get(Calendar.MONTH) + 1;
                     String note = noteText.getText().toString();
-                    Float value = 0f;
+                    long value = 0L;
                     if (txbMoney.getText() != null) {
-                        value = Float.valueOf(txbMoney.getText().toString());
+                        value = Long.valueOf(txbMoney.getText().toString().replace(".", "").trim());
                     }
                     int categoryId = adapter.getSelectedId();
                     money.setMoney(value);

@@ -23,7 +23,7 @@ public class Money implements Serializable {
     public Money() {}
 
     @Ignore
-    public Money(String note, Float money, int categoryId, int day, int month, int year, int type) {
+    public Money(String note, long money, int categoryId, int day, int month, int year, int type) {
         this.note = note;
         this.money = money;
         this.categoryId = categoryId;
@@ -52,11 +52,11 @@ public class Money implements Serializable {
         this.note = note;
     }
 
-    public Float getMoney() {
+    public long getMoney() {
         return money;
     }
 
-    public void setMoney(Float money) {
+    public void setMoney(long money) {
         this.money = money;
     }
 
@@ -101,7 +101,7 @@ public class Money implements Serializable {
     }
 
     private String note;
-    private Float money;
+    private long money;
     private int categoryId;
     private int day;
     private int month;
