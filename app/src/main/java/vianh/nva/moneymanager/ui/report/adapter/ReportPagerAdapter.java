@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import vianh.nva.moneymanager.ui.report.MonthReportFragment;
 import vianh.nva.moneymanager.ui.report.YearReportFragment;
 
+// Xem trong phan home
 public class ReportPagerAdapter extends FragmentStatePagerAdapter {
     private int numOfTabs;
 

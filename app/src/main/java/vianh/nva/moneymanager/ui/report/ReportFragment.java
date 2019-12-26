@@ -15,7 +15,7 @@ import com.google.android.material.tabs.TabLayout;
 
 import vianh.nva.moneymanager.R;
 import vianh.nva.moneymanager.ui.report.adapter.ReportPagerAdapter;
-
+// report fragment de chua view pager
 public class ReportFragment extends Fragment {
 
     private ReportViewModel reportViewModel;
@@ -30,6 +30,7 @@ public class ReportFragment extends Fragment {
     }
 
     private void initView(View root) {
+        // setup tab layout, xem trong phan home
         TabLayout tabLayout = root.findViewById(R.id.tabLayout);
         tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.month)));
         tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.year)));

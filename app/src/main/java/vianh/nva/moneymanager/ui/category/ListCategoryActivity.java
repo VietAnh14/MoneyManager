@@ -2,14 +2,9 @@ package vianh.nva.moneymanager.ui.category;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
-
 import android.os.Bundle;
-
-
 import com.google.android.material.tabs.TabLayout;
-
 import java.util.Objects;
-
 import vianh.nva.moneymanager.R;
 import vianh.nva.moneymanager.RequireLoginActivity;
 import vianh.nva.moneymanager.ui.category.adapter.CategoryPagerAdapter;
@@ -27,6 +22,7 @@ public class ListCategoryActivity extends RequireLoginActivity {
         initView();
     }
 
+    // Bam mui ten quay lai thi finish activity
     @Override
     public boolean onSupportNavigateUp() {
         finish();
@@ -39,6 +35,8 @@ public class ListCategoryActivity extends RequireLoginActivity {
         tabLayout.addTab(tabLayout.newTab().setText(R.string.income));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
+        // Khoi tao view pager
+        // Xem trong phan home
         final ViewPager viewPager = findViewById(R.id.viewPager);
         final CategoryPagerAdapter adapter = new CategoryPagerAdapter(getSupportFragmentManager(),
                 tabLayout.getTabCount());

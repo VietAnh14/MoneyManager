@@ -34,7 +34,9 @@ public class ListCategoryFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         assert getArguments() != null;
+        // Lay thong tin duoc truyen vao de xem cai nao la earn, cai nao la spend
         isSpend = getArguments().getBoolean("isSpend");
+        // Lay view model
         viewModel = ViewModelProviders.of(this).get(CategoryViewModel.class);
         View root = inflater.inflate(R.layout.fragment_list_category, container, false);
         innitView(root);
@@ -43,9 +45,12 @@ public class ListCategoryFragment extends Fragment {
 
     private void innitView(View root) {
         listCategory = root.findViewById(R.id.listCategory);
+        // Set adapter
         ListCategoryAdapter adapter = new ListCategoryAdapter(isSpend);
         listCategory.setLayoutManager(new LinearLayoutManager(getContext()));
         listCategory.setAdapter(adapter);
+        // Neu la spend thi dua vao list category spend
+        // Nguoc lai dua vao list category earn
         if (isSpend) {
             viewModel.getListCategorySpend().observe(this, categoryList -> {
                 adapter.setListCategory(categoryList);

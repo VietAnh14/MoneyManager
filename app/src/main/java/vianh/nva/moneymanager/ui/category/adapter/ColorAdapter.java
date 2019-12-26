@@ -18,6 +18,7 @@ import java.util.List;
 import vianh.nva.moneymanager.R;
 import vianh.nva.moneymanager.Utils.Utils;
 
+// Adapter cho recycler view color
 public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ColorViewHolder> {
     private List<String> listColorName;
     private Context context;
@@ -39,7 +40,11 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ColorViewHol
 
     @Override
     public void onBindViewHolder(@NonNull ColorViewHolder holder, int position) {
+        // Lay color id theo ten
         int colorId = Utils.getResId(listColorName.get(position), R.color.class);
+
+        // Lay thong tin drawable
+        // Set drawable background cho color item
         StateListDrawable drawable = (StateListDrawable) holder.itemView.getBackground();
         DrawableContainer.DrawableContainerState drawableContainerState = (DrawableContainer.DrawableContainerState) drawable.getConstantState();
         assert drawableContainerState != null;
@@ -51,7 +56,9 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ColorViewHol
         selectedItem.setColor(context.getResources().getColor(colorId));
         unSelectedItem.setColor(context.getResources().getColor(colorId));
 
+        // Set selected cho item dc chon
         holder.itemView.setSelected(position == selectedPos);
+        // Neu click vao item khac thi set selected cho item do
         holder.itemView.setOnClickListener(
                 v -> {
                     notifyItemChanged(selectedPos);

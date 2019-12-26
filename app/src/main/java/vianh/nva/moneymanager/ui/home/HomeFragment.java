@@ -37,7 +37,10 @@ public class HomeFragment extends Fragment implements DatePickerDialog.OnDateSet
     }
 
     private void initView(View root) {
+        // Setting view pager
         TabLayout tabLayout = root.findViewById(R.id.tabLayout);
+
+        // add tab va set title cho tab
         tabLayout.addTab(tabLayout.newTab().setText(R.string.outcome));
         tabLayout.addTab(tabLayout.newTab().setText(R.string.income));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
@@ -47,8 +50,12 @@ public class HomeFragment extends Fragment implements DatePickerDialog.OnDateSet
         final ViewPager viewPager = root.findViewById(R.id.viewPager);
         final PagerAdapter adapter = new PagerAdapter(activity.getSupportFragmentManager(),
                 tabLayout.getTabCount());
+
+        // set adapter
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
+        // Selected tab listener
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {

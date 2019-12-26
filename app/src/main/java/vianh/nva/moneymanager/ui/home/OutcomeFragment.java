@@ -39,6 +39,7 @@ import vianh.nva.moneymanager.data.entity.Money;
 import vianh.nva.moneymanager.ui.home.adapter.CategoryAdapter;
 import vianh.nva.moneymanager.ui.view.DatePickerDialogFragment;
 
+// out come i chang income, luc nay con ngu nen chua biet xai lai thang income
 public class OutcomeFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
 
     private HomeViewModel mViewModel;

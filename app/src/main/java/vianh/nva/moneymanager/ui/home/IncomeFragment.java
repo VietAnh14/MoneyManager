@@ -39,13 +39,14 @@ import vianh.nva.moneymanager.ui.view.DatePickerDialogFragment;
 
 public class IncomeFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
 
+    // View model
     private HomeViewModel mViewModel;
     private TextView dateText;
     private Button btnInsertEarnMoney;
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
     private FragmentActivity context;
     private EditText txbMoney;
-    public final String TAG = this.getClass().getSimpleName();
+    public static final String TAG = IncomeFragment.class.getSimpleName();
     private Calendar c = Calendar.getInstance();
     private EditText noteText;
 
@@ -55,6 +56,7 @@ public class IncomeFragment extends Fragment implements DatePickerDialog.OnDateS
 
     @Override
     public void onAttach(@NonNull Context context) {
+        // Lay context
         this.context = (FragmentActivity) context;
         super.onAttach(context);
     }
@@ -74,10 +76,11 @@ public class IncomeFragment extends Fragment implements DatePickerDialog.OnDateS
     @Override
     public void onStop() {
         super.onStop();
+        // clear all subscriptions
         compositeDisposable.clear();
     }
 
-    public void initData(View view) {
+    private void initData(View view) {
         mViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
 
         // get view
@@ -88,10 +91,14 @@ public class IncomeFragment extends Fragment implements DatePickerDialog.OnDateS
         btnInsertEarnMoney = view.findViewById(R.id.btnInsertEarnMoney);
         noteText = view.findViewById(R.id.noteEditText);
 
+        // Set text cho text view ngay thang la ngay thang nam hien tai
         String dateString = c.get(Calendar.DAY_OF_MONTH) + "/" + (c.get(Calendar.MONTH) + 1) + "/" + c.get(Calendar.YEAR);
         dateText.setText(dateString);
 
+        // Disable button nhap khoan thu chi
         btnInsertEarnMoney.setEnabled(false);
+
+        // Khi nao text khac null va khac 0 thi enable cho button nhap
         txbMoney.addTextChangedListener(new AfterTextChangedWatcher() {
             @Override
             public void afterTextChanged(Editable editable) {
@@ -105,7 +112,11 @@ public class IncomeFragment extends Fragment implements DatePickerDialog.OnDateS
         // bind adapter to recyclerview
         final CategoryAdapter adapter = new CategoryAdapter();
 
+        // Lay list category
+        // Neu category duoi db bi thay doi thi update lai list category trong adapter
         mViewModel.getListCategoryEarn().observe(this, categories -> {
+
+            // Category de chuyen den man hinh chinh sua category
             Category category = new Category("ic_chevron_right_black_24dp",
                     "colorPrimary", "Chinh sua gi do cho no dai ne", CategoryAdapter.TYPE_SETTING);
             categories.add(category);
@@ -113,17 +124,21 @@ public class IncomeFragment extends Fragment implements DatePickerDialog.OnDateS
             Log.d("Income", "Changed");
         });
 
+        // Setup grid layout cho recycler view
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 3);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
 
+        // set onclick cho button pick date
         btn.setOnClickListener(view1 -> {
             DatePickerDialogFragment datePicker = new DatePickerDialogFragment(IncomeFragment.this);
             datePicker.show(context.getSupportFragmentManager(), "Date picker dialog");
         });
 
+        // set onclik cho button nhap khoan thu chi
         btnInsertEarnMoney.setOnClickListener(
                 v -> {
+                    // lay cac thong tin
                     int month = c.get(Calendar.MONTH) + 1;
                     int year = c.get(Calendar.YEAR);
                     int day = c.get(Calendar.DAY_OF_MONTH);
@@ -133,17 +148,23 @@ public class IncomeFragment extends Fragment implements DatePickerDialog.OnDateS
                         spent = Long.valueOf(txbMoney.getText().toString());
                     }
                     int categoryId = adapter.getSelectedId();
+
+                    // tao money de luu vao db
                     Money money = new Money(note, spent, categoryId, day, month, year, Money.TYPE_EARN);
+
+                    // insert money
                     compositeDisposable.add(
                             mViewModel.insertMoney(money)
                                     .subscribeOn(Schedulers.io())
                                     .observeOn(AndroidSchedulers.mainThread())
                                     .subscribe(
                                             () -> {
+                                                // insert thanh cong, tao toast message xong roi clear text box
                                                 Toast.makeText(context, "Insert success", Toast.LENGTH_SHORT).show();
                                                 clearTxb();
                                             },
                                             throwable -> {
+                                                // tao toast message
                                                 Log.e(TAG, throwable.getMessage(), throwable);
                                                 Toast.makeText(context, "Insert failed", Toast.LENGTH_SHORT).show();
                                             }
@@ -154,6 +175,7 @@ public class IncomeFragment extends Fragment implements DatePickerDialog.OnDateS
         );
     }
 
+    // Implement onDateSet interface, set text cho textbox ngay la ngay duoc chon trong calendar dialog
     @Override
     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
         c.set(i, i1, i2);
@@ -161,7 +183,8 @@ public class IncomeFragment extends Fragment implements DatePickerDialog.OnDateS
         dateText.setText(dateString);
     }
 
-    public void clearTxb() {
+    // clear all text
+    private void clearTxb() {
         noteText.getText().clear();
         txbMoney.setText("0");
     }

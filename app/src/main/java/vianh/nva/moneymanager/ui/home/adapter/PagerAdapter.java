@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import vianh.nva.moneymanager.ui.home.IncomeFragment;
 import vianh.nva.moneymanager.ui.home.OutcomeFragment;
 
+// Adapter cho view pager
 public class PagerAdapter extends FragmentStatePagerAdapter {
     private int numOfTabs;
 
@@ -16,7 +17,7 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
         this.numOfTabs = numOfTabs;
     }
 
-
+    // Dinh nghia tab tai day
     @NonNull
     @Override
     public Fragment getItem(int position) {

@@ -14,6 +14,7 @@ import java.util.List;
 import vianh.nva.moneymanager.R;
 import vianh.nva.moneymanager.Utils.Utils;
 
+// adapter cho recycler view icon
 public class IconAdapter extends RecyclerView.Adapter<IconAdapter.IconViewHolder> {
     private List<String> listIconName;
     private Context context;
@@ -55,10 +56,12 @@ public class IconAdapter extends RecyclerView.Adapter<IconAdapter.IconViewHolder
         }
     }
 
+    // Lay ten icon duoc chon
     public String getSelectedIconName() {
         return listIconName.get(selectedPosition);
     }
 
+    // set selected position cho adapter
     public void setSelectedPosition(int selectedPosition) {
         notifyItemChanged(this.selectedPosition);
         this.selectedPosition = selectedPosition;

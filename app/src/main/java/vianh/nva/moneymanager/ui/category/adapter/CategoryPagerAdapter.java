@@ -10,7 +10,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import vianh.nva.moneymanager.ui.category.ListCategoryFragment;
 import vianh.nva.moneymanager.ui.home.IncomeFragment;
 import vianh.nva.moneymanager.ui.home.OutcomeFragment;
-
+// adapter cho view pager
 public class CategoryPagerAdapter extends FragmentStatePagerAdapter {
     private int numOfTabs;
 
@@ -20,6 +20,7 @@ public class CategoryPagerAdapter extends FragmentStatePagerAdapter {
     }
 
 
+    // khoi tao fragment roi chuyen tham so vao de phan biet cai nao la spend cai nao la earn
     @NonNull
     @Override
     public Fragment getItem(int position) {

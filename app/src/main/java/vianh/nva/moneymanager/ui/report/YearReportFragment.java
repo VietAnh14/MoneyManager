@@ -40,6 +40,7 @@ import vianh.nva.moneymanager.ui.report.adapter.TotalMoneyAdapter;
 /**
  * A simple {@link Fragment} subclass.
  */
+// Giong fragment month, khac cai la no khong co spinner thang thoi
 public class YearReportFragment extends Fragment {
 
     private final String TAG = this.getClass().getSimpleName();

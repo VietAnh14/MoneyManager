@@ -12,7 +12,7 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Function;
 import vianh.nva.moneymanager.data.AppRepository;
 import vianh.nva.moneymanager.data.entity.TotalMoneyDisplay;
-
+// Giong month report model
 public class YearReportViewModel extends AndroidViewModel {
     private AppRepository appRepository;
     private long totalEarn = 0L;
